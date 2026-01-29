@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!--폰트어썸 CDN : -->
+    <script
+      src="https://kit.fontawesome.com/4ec79785b5.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      nav {
+        background-color: lightblue;
+        display: flex;
+        justify-content: space-around;
+        height: 70px;
+        align-items: center;
+        padding-top: 15px;
+      }
+      ul {
+        list-style: none;
+        display: flex;
+      }
+      li {
+        padding: 0 15px;
+      }
+      a {
+        text-decoration: none;
+        color: gray;
+        font-weight: 800;
+      }
+      .appo {
+        padding: 0 5px;
+      }
+      a:hover {
+        color: blue;
+      }
+      .appo:hover {
+        background-color: blue;
+        cursor: pointer;
+        color: aliceblue;
+        border-radius: 7px;
+      }
+      /* 🌸브라우저 가로가 768 이하일 때 */
+      @media screen and (max-width: 768px) {
+        nav {
+          height: 170px;
+          align-items: flex-start;
+        }
+        .navbar ul {
+          flex-direction: column;
+        }
+        .navbar ul li {
+          line-height: 2;
+        }
+        .fa-bell,
+        .appo {
+          /* 🎀크기가 줄어들었을 때 bell 아이콘은 숨김 처리된다 */
+          /* visibility: hidden; */ /* 🌸자리는 차지(눈에서만 안 보인다) */
+          display: none; /* 🌸자리 자체 차지하지 않는다 */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <h1><i class="fa-solid fa-bars"></i><span>LOGO</span></h1>
+        <!--  🌸엔티티 코드 : 특수문자를 코드에 문제 없이
+                                그대로 사용 가능하게 하는 것 -->
+      </div>
+      <div class="navbar">
+        <ul>
+          <li><a href="animation01.html">Home</a></li>
+          <li><a href="page.html">Page</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="icons">
+        <ul>
+          <li>
+            <a href="#"><i class="fa-solid fa-bell"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-brands fa-bluesky"></i></a>
+          </li>
+          <li class="appo">Appointment</li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+        본문의 내용 다른 페이지의 내용
+    </main>
+  </body>
+</html>

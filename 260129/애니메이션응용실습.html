@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>젤다 애니메이션 응용 실습</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "myZeldaFont";
+        src: url("zelda.otf") format("opentype");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "myZeldaFont", sans-serif;
+        background-color: #f6f5ef;
+        color: #333;
+        overflow-x: hidden;
+        width: 100%;
+      }
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      /* 아이콘 크기 및 스타일 */
+      header .menu-icon-btn {
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #333;
+        border: none;
+        background: none;
+      }
+      /* 2. 섹션별 배경 이미지  */
+      section {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed; 를 삭제하여 사진이 겹치지 않게 함 */
+      }
+      /* 첫 번째 섹션 배경 */
+      .section-1 {
+        background-image: url("../images/헤브라체리나무.png");
+      }
+
+      /* 두 번째 섹션 배경 */
+      .section-2 {
+        background-image: url("../images/젤다사과나무.png");
+      }
+
+      /* 세 번째 섹션 배경 */
+      .section-3 {
+        background-image: url(../images/백룡벚꽃.png);
+      }
+
+      /* 애니메이션 및 콘텐츠 스타일 */
+      .animate-element {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      .content-box {
+        text-align: center;
+        color: #fff;
+        z-index: 10;
+      }
+
+      .floating-image {
+        width: 300px;
+        height: 300px;
+        background-color: transparent;
+        background-image: url("../images/최종고요한.png");
+        background-size: contain;
+        background-position: center;
+        margin: 20px auto;
+        border-radius: 0;
+        box-shadow: none;
+        background-repeat: no-repeat;
+        filter: drop-shadow(10px 15px 15px rgba(255, 255, 255, 0.651));
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <button class="menu-icon-btn">
+        <i class="fa-solid fa-align-justify"></i>
+         <div class="navbar">
+      </button>
+    </header>
+    <section class="section-1">
+      <div class="content-box">
+
+        <h1 class="animate-element" style="font-size: 4rem;margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+          Legend Of Zelda :
+        </h1>
+        <p class="animate-element" style="font-size: 1.5rem; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5)">
+          Tears of Kingdom </p>
+        </div>
+    </section>
+    <section class="section-2">
+      <div style="display: flex; align-items: center; gap: 50px; max-width: 1200px"      >
+        <div class="animate-element">
+          <div class="floating-image"></div>
+        </div>
+        <div class="content-box animate-element" style="text-align: left">
+          <h2 style="font-size: 3.5rem; color: #dce7e4; margin-bottom: 30px">
+            Item Of the Day
+          </h2>
+          <p style="color: #fff; line-height: 1.5; font-size: 1.8rem">
+            하이랄 왕국의 공주가 사랑했다는 청초한 꽃.<br> 
+            이전부터 멸종의 위기에 처한 종이었지만, <br>
+            최근에 드물게 자생하고 있는 것을 볼 수 있다.
+            
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-3">
+      <div class="content-box" style="color: #0000006e">
+        <h2 class="animate-element" style="margin-bottom: 40px; color: #dac44dd7">
+          ゼルダの伝説 ティアーズ オブ ザ キングダム
+        </h2>
+        <p><strong>「リンク どうか、ハイラルを救ってください。」</strong></p>
+      </div>
+    </section>
+
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray(".animate-element").forEach((element) => {
+        gsap.to(element, {
+          scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power3.out",
+ });
+ });
+    </script>
+ </body>
+</html>

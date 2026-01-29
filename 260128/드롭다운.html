@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>드롭다운 transition</title>
+    <style>
+        .dropdown{
+            width: 200px;
+            text-align: center;
+        }
+        .dropbtn-title{
+            background-color: lightblue;
+            font-weight: bold;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 10px o;
+            
+        }
+        .dropdown-content{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background-color: lightblue;
+            opacity: 0; /* 🌸단순히 눈에만 안 보이고 존재한다 */
+            visibility: hidden; /* 🌸보이지 않을 때 클릭 안되고 접근성 지킨다*/
+            /* 🎀 opacity: 0; visibility: hidden;= 초기 상태 숨김 설정 */
+            transition: opacity 0.5s ease, visibility 0.5s; /* 🎀부드럽게 나타나도록 애니메이션 */
+        }
+        .dropdown:hover .dropdown-content{
+            opacity: 1;
+            visibility: visible;
+            /* 🎀.dropdown에 마우스를 올리면 .tooltip-content를 보여라 */
+        }
+        .dropdown-content li a{
+            text-decoration: none;
+            color: gray;
+            display: block;
+            padding: 10px;
+        }
+        .dropdown-content li a:hover{
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="dropdown">
+        <!-- 🌸메인 메뉴 : 제목만 배경색 적용 -->
+        <div class="dropbtn-title">드롭다운</div>
+        <!-- 🌸서브 메뉴 -->
+        <ul class="dropdown-content">
+            <il><a href="#">서브메뉴1</a></il>
+            <il><a href="#">서브메뉴2</a></il>
+            <il><a href="#">서브메뉴3</a></il>
+        </ul>
+    </div>
+</body>
+</html>

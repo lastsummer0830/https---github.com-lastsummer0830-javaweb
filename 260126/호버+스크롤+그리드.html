@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>호버+스크롤+그리드</title>
+    <style>
+      * {
+        margin: 0;
+        scroll-behavior: smooth;
+        box-sizing: border-box;
+      }
+      h3.main-title {
+        font-size: 70px;
+        font-weight: 800;
+        text-align: center;
+        color: aliceblue;
+        padding: 100px 0 50px 0;
+      }
+      .section1 {
+        min-height: 100vh;
+        background: url(../images/dried-flowers-9990282_1280.jpg) no-repeat 50%
+          0 / cover fixed;
+        padding-bottom: 100px;
+      }
+      .section2 {
+        background: url(../images/사슴.jpg) no-repeat 50% 0 / cover fixed;
+        height: 100vh;
+      }
+      .section3 {
+        background: url(../images/sea-10030952_1280.jpg) no-repeat 50% 0 / cover
+          fixed;
+        height: 100vh;
+      }
+      .section4 {
+        background: url(../images/flowers-6808776_1280.jpg) no-repeat 50% 0 /
+          cover fixed;
+        height: 100vh;
+      }
+      .section5 {
+        background: url(../images/보라색꽃.jpg) no-repeat 50% 0 / cover fixed;
+        height: 100vh;
+      }
+
+      nav {
+        height: 70px;
+        text-align: center;
+        padding-top: 30px;
+      }
+      ul {
+        list-style: none;
+      }
+      li {
+        display: inline-block;
+        border: solid 2px rgb(0, 0, 0);
+        vertical-align: top;
+        margin-right: 5px;
+        padding: 0;
+        cursor: pointer;
+      }
+      li:hover {
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+      }
+      a.nav-btn {
+        display: block;
+        text-decoration: none;
+        color: white;
+        background-color: black;
+        padding: 15px 25px;
+      }
+      a.nav-btn:hover {
+        color: rgb(184, 123, 168);
+        background-color: whitesmoke;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px 30px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      .grid-item {
+        display: flex;
+        flex-direction: column;
+        background-color: #f9f9f9;
+        padding: 15px;
+      }
+      .image-box img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      .grid-item h3 {
+        margin: 15px 0 5px 0;
+        font-size: 1.1rem;
+        color: #020000;
+        line-height: normal;
+        text-align: left;
+      }
+      .grid-item p {
+        margin: 0;
+        font-size: 16px;
+        color: #666;
+      }
+      .top {
+        color: white;
+        display: block;
+        text-align: center;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section class="section1" id="section1">
+        <nav>
+          <ul>
+            <li><a href="#section2" class="nav-btn">MENU</a></li>
+            <li><a href="#section3" class="nav-btn">PRODUCT</a></li>
+            <li><a href="#section4" class="nav-btn">Q&A</a></li>
+            <li><a href="#section5" class="nav-btn">NOTICE</a></li>
+          </ul>
+        </nav>
+
+        <h3 class="main-title">RAW FOOD FOR DOGS</h3>
+
+        <div class="grid-container">
+          <div class="grid-item">
+            <div class="image-box">
+              <img src="../images/생식1.jpg" alt="" />
+            </div>
+            <h3>RAW Food for Dogs</h3>
+            <p>
+              The Best Healthy Diet for Your Dog. Tailored nutrition to keep
+              your furry friend happy and strong.
+            </p>
+          </div>
+          <div class="grid-item">
+            <div class="image-box">
+              <img src="../images/생식2.jpg" alt="" />
+            </div>
+            <h3>RAW Food for Dogs</h3>
+            <p>
+              The Best Healthy Diet for Your Dog. Tailored nutrition to keep
+              your furry friend happy and strong.
+            </p>
+          </div>
+          <div class="grid-item">
+            <div class="image-box">
+              <img src="../images/생식3.jpeg" alt="" />
+            </div>
+            <h3>RAW Food for Dogs</h3>
+            <p>
+              The Best Healthy Diet for Your Dog. Tailored nutrition to keep
+              your furry friend happy and strong.
+            </p>
+          </div>
+          <div class="grid-item">
+            <div class="image-box">
+              <img src="../images/생식4.png" alt="" />
+            </div>
+            <h3>RAW Food for Dogs</h3>
+            <p>
+              The Best Healthy Diet for Your Dog. Tailored nutrition to keep
+              your furry friend happy and strong.
+            </p>
+          </div>
+
+          <div class="grid-item">
+            <div class="image-box">
+              <img src="../images/생식5.png" alt="" />
+            </div>
+            <h3>RAW Food for Dogs</h3>
+            <p>
+              The Best Healthy Diet for Your Dog. Tailored nutrition to keep
+              your furry friend happy and strong.
+            </p>
+          </div>
+
+          <div class="grid-item">
+            <div class="image-box">
+              <img src="../images/생식6.png" alt="" />
+            </div>
+            <h3>RAW Food for Dogs</h3>
+            <p>
+              The Best Healthy Diet for Your Dog. Tailored nutrition to keep
+              your furry friend happy and strong.
+            </p>
+          </div>
+
+          <div class="grid-item">
+            <div class="image-box">
+              <img src="../images/생식7.jpg" alt="" />
+            </div>
+            <h3>RAW Food for Dogs</h3>
+            <p>
+              The Best Healthy Diet for Your Dog. Tailored nutrition to keep
+              your furry friend happy and strong.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section2" id="section2"><h3>MENU</h3></section>
+      <section class="section3" id="section3"><h3>PRODUCT</h3></section>
+      <section class="section4" id="section4"><h3>Q&A</h3></section>
+      <section class="section5" id="section5">
+        <h3>NOTICE</h3>
+        <a href="#" class="top">맨 위로</a>
+      </section>
+    </div>
+  </body>
+</html>

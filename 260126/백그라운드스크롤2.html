@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 별: 와일드 카드 문자. 전체 선택이라는 의미 */
+      * {
+        margin: 0;
+        scroll-behavior: smooth;
+      }
+      h3 {
+        font-size: 70px;
+        font-weight: 800; /*폰트 두께 */
+        line-height: 700px; /*줄 간격*/
+        /*글자 크기 키움+스크롤 가능하게 간격 넓힘 */
+        text-align: center; /*폰트를 가운데로 정렬*/
+        color: aliceblue;
+      }
+      .section1 {
+        height: 700px;
+        background: url(../images/dried-flowers-9990282_1280.jpg) no-repeat 50%
+          0 / cover fixed;
+        /* 📣슬래쉬 이후 순서가 지켜져야 적용됨(커버-픽스드)*/
+        /* 📣숫자 다음에 오기 때문에 구분하기 위해 슬래쉬를 넣음*/
+        /* 📣background-size: cover; */
+        /* 📣50% 0의 의미=
+           x축 50% : center 가운데
+           y축 0 : top 맨 위에*/
+        /* 📣background-attachment : fixed; */
+      }
+      .section2 {
+        background: url(../images/사슴.jpg) no-repeat 50% 0 scroll;
+        background-size: cover;
+      }
+      .section3 {
+        background: url(../images/sea-10030952_1280.jpg) no-repeat 50% 0 scroll;
+        background-size: cover;
+      }
+      .section4 {
+        background: url(../images/flowers-6808776_1280.jpg) no-repeat 50% 0
+          scroll;
+        background-size: cover;
+      }
+      /* nav */
+      nav {
+        height: 70px;
+        border: solid none;
+        text-align: center;
+      }
+      ul {
+        list-style: none;
+      } /* 목차 점이 없어진다 */
+      li {
+        display: inline; /* 목차를 한 줄로 나타낸다 */
+        border: solid 2px black;
+      }
+      li:hover {
+        background-color: black;
+        color: whitesmoke;
+      }
+      a {
+        text-decoration: none; /* a태그 기본 꾸미기 속성을 없애줌*/
+        /* 선이 없어진다 */
+        color: black;
+      }
+      a:hover {
+        color: whitesmoke;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section class="section1">
+        <nav>
+          <ul>
+            <li><a href="#section2">MENU</a></li>
+            <li><a href="#section3">PRODUCT</a></li>
+            <li><a href="#section4">Q&A</a></li>
+          </ul>
+        </nav>
+        <h3>WEB FRONTED</h3>
+      </section>
+      <section class="section2" id="section2">
+        <h3>WEB FRONTED</h3>
+      </section>
+      <section class="section3" id="section3">
+        <h3>WEB FRONTED</h3>
+      </section>
+      <section class="section4" id="section4">
+        <h3>WEB FRONTED</h3>
+        <a href="#" class="top">맨 위로</a>
+      </section>
+    </div>
+  </body>
+</html>

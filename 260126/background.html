@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>background</title>
+    <style>
+        section{
+            width: 1000px;
+            height: 400px;
+            border: 1px solid black;
+            background-image: url(../images/벚꽃.jpg);
+            background-size: cover;/* 비율을 유지하면서 사진을 넣는 것*/
+            background-repeat: no-repeat; /*반복하지 않음*/
+            background-position: 100% 50%; /*위치를 가운데로*/
+        }
+        article{
+            width: 1000px;
+            height: 400px;
+            border: 1px solid red;
+            background-image: url(../images/dog-9830812_1280.jpg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        /* 🌼
+            background-repeat: no-repeat; 배경을 반복하지 않는다
+            background-repeat: repeat-x; 가로로 이미지를 반복한다
+            background-repeat: repeat-y; 세로로 이미지를 반복한다
+            background-position: center; 가운데로
+            background-position: right bottom; 오른쪽 아래로
+            background-position: 20px 60px; 위치 x가 20 y가 60
+            background-position: 100% 50%; 오른쪽 끝 위에서 중앙
+            background-size: cover; 배경 이미지가 잘리더라도 사진을 가득 채운다
+            background-size: contain; 비율 유지 영역안에 가득채운다.
+         */
+    </style>
+</head>
+<body>
+    <section>
+        <article></article>
+    </section>
+    
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixed Layout</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .container {
+        display: flex;
+        /* 기본은 세로 정렬 (모바일) */
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .item {
+        background-color: rgb(255, 255, 255);
+        color: rgb(66, 62, 62);
+        border: 3px solid rgb(235, 162, 192);
+        padding: 30px;
+        text-align: center;
+      }
+
+      /* 큰 화면 (768px 이상부터 바로 한 줄 정렬) */
+      @media (min-width: 768px) {
+        .container {
+          /* 가로로 나란히 */
+          flex-direction: row;
+          /* 줄바꿈 금지 (무조건 한 줄) */
+          flex-wrap: nowrap;
+        }
+
+        .item {
+          /* 핵심: 너비를 숫자로 지정하지 않고, 남은 공간을 똑같이 나눠 가짐 */
+          flex: 1;
+          /* 기존에 방해되던 width 설정이 있다면 초기화 */
+          width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">A</div>
+      <div class="item">B</div>
+      <div class="item">C</div>
+    </div>
+  </body>
+</html>

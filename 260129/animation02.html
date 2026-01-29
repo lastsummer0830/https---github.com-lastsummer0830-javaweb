@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> animation02</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        section{
+            background: url(../images/cloudemoon.jpg);
+            height: 100vh;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .firPart span{
+            color: aliceblue;
+            font-size: 50px;
+            position: absolute;
+            top: 52%;
+            right: 5%;
+            animation: moveIn 5s ease-out alternate infinite;
+        }
+        .firPart p{
+            color: aliceblue;
+            font-size: 70px;
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            animation: moveIn 5s ease-out infinite;
+        }
+        @keyframes moveIn{
+            from{
+                right: -10%;
+                opacity: 0;
+            }to{
+                right: 5%;
+                opacity: 1;
+            }
+        }
+        @keyframes moveOut{
+            from{
+                right: -10%;
+                opacity: 0;
+            }to{
+                right: 5%;
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section>
+    <div class="firPart">
+        <span> “The Moon,<br> as the closest celestial body to Earth, <br> is the only world beyond our planet that <br>humans have directly explored so far.” </span><br>
+        <p>
+            MOON<br>
+            Over The Sky
+        </p>
+    </div>
+    </section>
+</body>
+</html>
