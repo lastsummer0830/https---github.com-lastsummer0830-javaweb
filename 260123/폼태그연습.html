@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>입력 폼 form 만들기</title>
+<style>
+    fieldset {
+        width: 400px;
+    }
+</style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>입력 폼 form 만들기</h1>
+
+<fieldset style="border:1px solid gray;">
+<form>
+<h3 style="font-weight: bold;">회원 정보 입력</h3>
+
+<fieldset style="border:1px solid gray;
+padding:20px; width:400px;">
+<legend style="color: rgb(65, 138, 248); font-weight: bold;">로그인 정보</legend>
+<label for="uid">아이디</label>
+<input type="text" id="uid" placeholder="아이디를 입력하세요"><br><br>
+
+<label for="upw">비밀번호</label>
+<input type="password" id="upw" placeholder="비밀번호를 입력하세요">
+<input type="button"  value="로그인" style="background-color: rgb(65, 138, 248); color: white; border: none; padding: 5px 10px; ">
+</fieldset>
+
+<br>
+
+<fieldset>
+<legend style="color: rgb(65, 138, 248); font-weight: bold;">추가 정보</legend>
+<p>메일 주소: <input type="email" placeholder="asdf@naver.com"></p>
+
+<p>
+메일 수신:
+<input type="radio" name="mail" id="yes" checked><label for="yes">동의</label>
+<input type="radio" name="mail" id="no"><label for="no">거부</label>
+</p>
+
+<p>연락처: <input type="tel" placeholder="-을 빼고 입력해주세요."></p>
+
+<p>생년월일: <input type="text" placeholder="YYYY-MM-DD"></p>
+
+<p>
+취미:
+<input type="checkbox" id="h1"><label for="h1">독서</label>
+<input type="checkbox" id="h2"><label for="h2">음악감상</label>
+<input type="checkbox" id="h3"><label for="h3">운동</label>
+</p>
+
+<p>
+가입경로:
+<select>
+<option>블로그</option>
+<option>검색</option>
+</select>
+</p>
+
+<p>자유롭게 의견을 남겨주세요.</p>
+<textarea cols="40" rows="5"></textarea>
+
+<p>메모</p>
+<textarea cols="40" rows="3"></textarea>
+
+<br><br>
+<input type="submit" value="제출" style="background-color: rgb(65, 138, 248); color: white; border: none; padding: 5px 10px;">
+</fieldset>
+</fieldset>
+</form>
+
+</body>
+</html>
