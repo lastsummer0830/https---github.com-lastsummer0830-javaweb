@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfect Grid Layout</title>
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        display: grid;
+
+        /* 가로 3칸 (비율 동일) */
+        grid-template-columns: 1fr 1fr 1fr;
+
+        /* 세로 4줄 (각 줄의 높이 지정) 
+               * 사진 비율에 맞춰서 높이를 조금씩 다르게 줬습니다.
+            */
+        grid-template-rows: 180px 500px 300px 180px;
+
+        /* ★ 여기가 핵심입니다 (사진 속 배치 그대로 구현) */
+        grid-template-areas:
+          "img1 img1 img2" /* 1행: 1번(가로2칸), 2번(시작) */
+          "img3 img4 img2" /* 2행: 3번, 4번(시작), 2번(끝) */
+          "img5 img4 img6" /* 3행: 5번, 4번(끝), 6번 */
+          "img7 img8 img8"; /* 4행: 7번, 8번(가로2칸) */
+
+        gap: 10px; /* 사이 간격 */
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+      /* 이미지 공통 스타일 */
+      div {
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* 각 위치별 사진 지정 */
+      .box1 {
+        grid-area: img1;
+        background-image: url(../images/zeldasword.jpg);
+        /* ★ 가로(중간), 세로(위에서 n% 지점) */
+        background-position: center 10%;
+      } /* 가로로 긴 사진 추천 */
+      .box2 {
+        grid-area: img2;
+        background-image: url(../images/pinter_바다.jpg);
+      } /* 세로로 아주 긴 사진 추천 */
+
+      .box3 {
+        grid-area: img3;
+        background-image: url(../images/pinter_보라히아신스밭.jpg);
+        background-position: center 70%;
+      } /* 정사각형 또는 일반 비율 */
+      .box4 {
+        grid-area: img4;
+        background-image: url(../images/pinter_센과치히로.jpg);
+        background-position: left;
+      } /* 세로로 긴 사진 추천 */
+
+      .box5 {
+        grid-area: img5;
+        background-image: url(../images/pinter_분홍연꽃.jpg);
+        background-position: center 50%;
+      } /* ▶ 추천: 정사각형 또는 일반 비율 */
+      .box6 {
+        grid-area: img6;
+        background-image: url(../images/조나우바다.jpg);
+      } /* ▶ 추천: 정사각형 또는 일반 비율 */
+
+      .box7 {
+        grid-area: img7;
+        background-image: url(../images/가디언꽃.jpg);
+      } /* ▶ 추천: 정사각형 또는 일반 비율 */
+      .box8 {
+        grid-area: img8;
+        background-image: url("조나우바다.jpg");
+      } /* 가로로 긴 사진 추천 */
+    </style>
+  </head>
+  <body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <div class="box4"></div>
+    <div class="box5"></div>
+    <div class="box6"></div>
+    <div class="box7"></div>
+    <div class="box8"></div>
+  </body>
+</html>

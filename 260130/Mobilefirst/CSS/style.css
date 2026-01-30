@@ -45,6 +45,18 @@ header{
     margin-left: 1rem;
 }
 
+/* 메뉴 기본 숨김  */
+
+nav{
+    display: none;  /* 🌸 */
+    background: #333; 
+    opacity: 0.9;
+}
+
+/* JS 토글 이후 추가 내용 */
+nav.js-open{
+    display: block;
+}
 /* 햄버거 버튼 */
 /* 🫧 2) 이렇게 해도 됨 */
 /* .menu-toggle-btn{
@@ -184,6 +196,26 @@ footer{
     .work-list li{
         width: 48%;
     }
+    .blog-list {
+        display: flex;       /* 가로 배치 시작 */
+        flex-wrap: wrap;     /* 줄바꿈 허용 */
+        gap: 1.5rem;         /* 사이 간격 */
+        justify-content: center;
+    }
+
+    .blog-list li {
+        width: 30%;          /* 3개씩 배치 (100% / 3 ≒ 30%) */
+        /* 필요 시 아래 스타일 포함 */
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 1rem;
+    }
+    
+    .blog-list li h3 {
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+    }
+}
     /* 📖1. work blog 2열로 배치
        📖2. 제목만 살짝 키움
        📖3. 1024 이상일 때는 
@@ -192,57 +224,46 @@ footer{
        promotion, work 4열
        blog 3열
        */      
-}
+
 
 /* PC 1024px 이상일 때 */
 @media (min-width: 1024px){
-
-    /* 1. 햄버거 버튼 숨기고 NAV 보이기 */
+    /* 1. header */
     .menu-toggle-btn {
         display: none;
     }
-
-    .gnb {
+    nav{
         display: block;
-        margin-right: 2rem;
+        background: none;
     }
-    
-    .gnb ul {
-        display: flex; /* 가로 배치 */
-        gap: 40px;     /* 메뉴 사이 간격 */
-    }
-    
-    .gnb ul li a {
-        color: #fff;
-        font-weight: 600;
-        line-height: 60px; /* 헤더 높이와 동일하게 */
-        transition: color 0.3s;
-    }
-    
-    .gnb ul li a:hover {
-        color: lightblue;
-    }
-
-    /* 2. Promotion & Work: 4열 배치 (한 줄에 4개) */
-    .promo-list li, 
-    .work-list li {
-        /* 100% ÷ 4개 = 25%지만, gap(간격) 공간을 고려해 22%로 설정 */
-        width: 22%; 
-    }
-
-    /* 3. Blog: 3열 배치 (한 줄에 3개) */
-    .blog-list {
+    nav ul{
         display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        justify-content: center; /* 가운데 정렬 */
+        position: absolute;
+        top: 1rem;
+        right: 2rem;
     }
+    nav li{
+        margin-left: 1.5rem;
+    }
+    nav a{
+        color: #fff;
+        font-size: 0.95rem;
+    }
+    /* promotion 4열 */
 
-    .blog-list li {
-        /* 100% ÷ 3개 = 33%지만, gap 공간 고려해 30%로 설정 */
-        width: 30%;
-        /* 레이아웃 확인용 테두리 (필요 없으면 삭제) */
-        border: 1px solid #ddd; 
-        padding: 1rem;
+    /* work 4열 */
+
+    /* blog 3열 */
+
+    .sec-tit{
+        font-size: 2.6rem;
     }
 }
+
+
+
+
+
+
+
+   
