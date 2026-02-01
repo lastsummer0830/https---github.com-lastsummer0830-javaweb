@@ -239,15 +239,17 @@ footer{
     nav ul{
         display: flex;
         position: absolute;
-        top: 1rem;
+        top: 0rem;
         right: 2rem;
+        height: 60px;
+        align-items: center;
     }
     nav li{
-        margin-left: 1.5rem;
+        margin-left: 2rem;
     }
     nav a{
         color: #fff;
-        font-size: 0.95rem;
+        font-size: 1rem;font-weight: 500;
     }
     /* promotion 4열 */
 
@@ -256,11 +258,31 @@ footer{
     /* blog 3열 */
 
     .sec-tit{
-        font-size: 2.6rem;
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+    /* 3. promotion 4열 (한 줄에 4개 = 너비 약 25%) */
+    /* WE ARE 섹션이 1줄(1열)로 보이게 됨 */
+    .promo-list li {
+        /* (전체 100% - 간격 1.5rem * 3개) 나누기 4 */
+        width: calc((100% - (1.5rem * 3)) / 4);
+    }
+
+    /* 4. work 4열 (한 줄에 4개 = 너비 약 25%) */
+    /* 아이템이 8개이므로 자동으로 2줄(2열)로 보이게 됨 */
+    .work-list li {
+        width: calc((100% - (1.5rem * 3)) / 4);
+    }
+    
+    /* WORK 내부 텍스트 크기 등 미세 조정 */
+    .work-list a {
+        padding: 3rem 1rem; 
+    }
+
+    .blog-list li {
+        width: calc((100% - (1.5rem * 2)) / 3);
     }
 }
-
-
 
 
 
