@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 탭버튼 css </title>
+    <style>
+        input[name='tab-group']{
+            display: none;
+        }
+        .tab-button{
+            display: inline-block;
+            width: 150px;
+            padding: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+        .tab-content{
+            border: 1px solid #333;
+            width: 420px;
+            padding: 20px;
+            display: none;
+        }
+        /* 🌸체크된 라디오 버튼의 '다음' 라벨 스타일 변경 */
+        input#tab1:checked + label,
+        input#tab2:checked + label,
+        input#tab3:checked + label{
+            background-color: pink;
+            font-weight: bold;
+        }
+        /* 🌸체크된 라디오 버튼의 '형제' 중 해당 컨텐츠만 보여준다 */
+        #tab1:checked ~ #content1,
+        #tab2:checked ~ #content2,
+        #tab3:checked ~ #content3{
+            /* 🎀tab1이 체크되면 content1을 보여준다라는 뜻 */
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="tabs">
+        <!-- 🌸라디오 버튼 그룹 (동일한 name을 가져야 함) -->
+         <input type="radio" name="tab-group" id="tab1" checked>
+         <label for="tab1" class="tab-button">탭 1</label>
+
+         <input type="radio" name="tab-group" id="tab2" checked>
+         <label for="tab2" class="tab-button">탭 2</label>
+
+         <input type="radio" name="tab-group" id="tab3" checked>
+         <label for="tab3" class="tab-button">탭 3</label>
+
+         <!-- 🎀id와 label의 이름은 같게 줘여한다 -->
+        <!-- 🌸탭 내용들 (라디오 버튼들과 형제 관계여야 함) -->
+         <div id="content1" class="tab-content">
+            <h3>탭 1의 제목</h3>
+            <pre>11111111탭 내용입니다.</pre>
+         </div>
+
+         <div id="content2" class="tab-content">
+            <h3>탭 2의 제목</h3>
+            <pre>22222222탭 내용입니다.</pre>
+         </div>
+
+         <div id="content3" class="tab-content">
+            <h3>탭 3의 제목</h3>
+            <pre>33333333탭 내용입니다.</pre>
+         </div>
+    </div>
+</body>
+</html>

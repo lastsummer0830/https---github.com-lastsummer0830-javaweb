@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> gradient 원형 </title>
+    <style>
+        div{
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            box-shadow: 10px 10px 10px gray;
+        }
+        .gradation1{
+            background: green;
+            background: radial-gradient(circle at 20% 20%, yellow, orange);
+            /* 🌸20% 20%에서 시작하여 노랑에서 오렌지로 바뀌는 원형 그라데이션 */
+            /* 🌸x축20% y축20% 지점 */
+        }
+        .gradation2{
+            background: blue;
+            background: radial-gradient(circle at 80% 80%, white, lightblue, blue);
+        }
+        .gradation3{
+            background: violet;
+            background: radial-gradient(circle at 33%, white, violet, purple);
+        }
+    </style>
+</head>
+<body>
+    <div class="gradation1"></div>
+    <div class="gradation2"></div>
+    <div class="gradation3"></div>
+</body>
+</html>

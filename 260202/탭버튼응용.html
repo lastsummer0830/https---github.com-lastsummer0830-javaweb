@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>탭버튼 애니메이션</title>
+    <style>
+      /* 1. 기본 스타일 */
+      body {
+        padding: 50px;
+      }
+
+      /* 2. 라디오 버튼 숨김 */
+      /* 🎀라디오 버튼(input)은 실제 작동하는 스위치
+         🎀라벨(label)은 탭 버튼 모양으로 예쁘게 꾸민 것 */
+      input[name="tab-group"] {
+        display: none;
+      }
+
+      /* 3. 탭 버튼 디자인 (기본 상태) */
+      .tab-button {
+        display: inline-block;
+        width: 120px;
+        padding: 12px 0;
+        text-align: center;
+        cursor: pointer;
+        background-color: #eee; /* 회색 배경 */
+        color: #777; /* 회색 글씨 */
+        border: none;
+    
+
+        /* 🎀 둥근 모서리 (왼쪽위, 오른쪽위, 오른쪽아래, 왼쪽아래) */
+        border-radius: 10px 10px 0 0;
+        margin-right: 5px; /* 버튼 사이 간격 */
+        margin-bottom: -3px; /* 테두리와 자연스럽게 겹치도록 위치 조정 */
+        font-weight: bold;
+        transition: all 0.3s; /* 색깔이 부드럽게 바뀌도록 */
+      
+      }
+
+      /* 4. 탭 내용 박스 디자인 */
+      .tab-content {
+        background: #fff;
+        border: 5px solid #222; /* 🎀 두꺼운 검은 테두리 */
+        border-radius: 10px; /* 왼쪽 위만 빼고 둥글게 */
+        width: 500px;
+        padding: 30px;
+        display: none; /* 평소엔 숨김 */
+        margin-top: 3px;
+        box-shadow: 10px 10px 0px rgba(100, 98, 98, 0.356);
+        /* 🎀box-shadow: ①가로   ②세로   ③흐림   ④확산(생략가능)   ⑤색상  
+                            10px     10px      0px        0px             black; */
+    }
+
+      /* 내용 안의 제목 스타일 */
+      .tab-content h3 {
+        margin-top: 0;
+        font-size: 24px;
+      }
+
+      /* -------------------------------------------
+           ✨ 핵심! 애니메이션 정의 (점점 커지는 효과)
+           ------------------------------------------- */
+      @keyframes zoomIn {
+        0% {
+          transform: scale(0.9); /* 0.9배 크기에서 시작 */
+          opacity: 0; /* 투명하게 시작 */
+        }
+        100% {
+          transform: scale(1); /* 원래 크기로 */
+          opacity: 1; /* 선명하게 */
+        }
+      }
+
+      /* 5. 선택된(Checked) 탭 버튼 스타일 */
+      input:checked + label.tab-button {
+        background-color: #222; /* 🎀 선택되면 검은색 배경 */
+        color: #fff; /* 🎀 선택되면 흰색 글씨 */
+        transform: translateY(-2px); /* 살짝 위로 올라오는 느낌 */
+        position: relative;
+        z-index: 1;
+      }
+
+      /* 6. 선택된 탭의 내용 보여주기 (+ 애니메이션 적용) */
+      #tab1:checked ~ #content1,
+      #tab2:checked ~ #content2,
+      #tab3:checked ~ #content3 {
+        display: block;
+        /* ✨ 여기서 애니메이션 실행 (0.3초 동안) */
+        animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        /* 🎀cubic-bezier (큐빅 베지어):
+        애니메이션의 속도감을 조절하는 리듬 악보 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tabs">
+      <input type="radio" name="tab-group" id="tab1" checked />
+      <label for="tab1" class="tab-button">Tab One</label>
+
+      <input type="radio" name="tab-group" id="tab2" />
+      <label for="tab2" class="tab-button">Tab Two</label>
+
+      <input type="radio" name="tab-group" id="tab3" />
+      <label for="tab3" class="tab-button">Tab Three</label>
+
+      <div id="content1" class="tab-content">
+        <h3>Design Logic 01</h3>
+        <p>탭 버튼이 위로 <strong>점프</strong>하며 활성화됩니다.</p>
+      </div>
+
+      <div id="content2" class="tab-content">
+        <h3>Deep Dark 02</h3>
+        <p>강력한 <strong>두께 5px</strong>의 테두리가 적용되었습니다.</p>
+      </div>
+
+      <div id="content3" class="tab-content">
+        <h3>Animation 03</h3>
+        <p><strong>확대(Scale)</strong> 효과와 함께 나타납니다.</p>
+      </div>
+    </div>
+  </body>
+</html>

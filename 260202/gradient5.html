@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li{
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+        }
+        .box1{
+            background: green;
+            background: radial-gradient(circle closest-side at 30% 40%, white, yellow, green);
+            /* 🌸그라데이션 가장자리가 가장 가까운 면에 닿을 때까지 그린다 */
+        }
+        .box2{
+            background: green;
+            background: radial-gradient(circle closest-corner at 30% 40%, white, yellow, green);
+            /* 🌸그라데이션 중심에서 가장 가까운 꼭짓점에 닿을 때까지 그린다. */
+        }
+        .box3{
+            background: green;
+            background: radial-gradient(circle farthest-side at 30% 40%, white, yellow, green);
+            /* 🌸그라데이션 가장자리가 그라데이션 중심에서 가장 먼 면과 만날 때까지. */
+        }
+        .box4{
+            background: green;
+            background: radial-gradient(circle farthest-corner at 30% 40%, white, yellow, green);
+            /* 🌸그라데이션 가장자리가 그라데이션 중심에서 가장 먼 꼭짓점에 닿을 때까지 */
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li class="box1"></li>
+        <li class="box2"></li>
+        <li class="box3"></li>
+        <li class="box4"></li>
+    </ul>
+</body>
+</html>

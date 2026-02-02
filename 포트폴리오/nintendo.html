@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Jin's SWITCH Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* [1. 전체 설정] */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #2d2d2d;
+      }
+
+      /* [2. 헤더 (상단바)] */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        z-index: 1000;
+        background: linear-gradient(
+          180deg,
+          rgba(104, 103, 103, 0.8) 0%,
+          transparent 100%
+        );
+      }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #fff;
+        cursor: pointer;
+        text-shadow: 0 2px 4px rgba(68, 68, 68, 0.5);
+        transition: transform 0.2s;
+      }
+      .logo:hover {
+        transform: scale(1.05);
+        color: #e60012;
+      }
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+      }
+      nav ul li {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ccc;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+      nav ul li:hover {
+        color: #00c3e3;
+      }
+
+      /* [3. 슬라이드 컨테이너] */
+      #main-container {
+        display: flex;
+        width: 600vw; /* 6개 섹션 */
+        height: 100vh;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      /* 공통 섹션 스타일 */
+      section {
+        width: 100vw;
+        height: 100vh;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden; /* 내부 요소가 삐져나오지 않게 */
+      }
+
+      /* -----------------------------------------------------------
+           [PAGE 1 & 2] 인트로 및 메뉴 (기존 코드 유지)
+        ----------------------------------------------------------- */
+      #intro {
+        background-color: #e60012;
+      }
+      .switch-ani-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 40px;
+        animation: snapDrop 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      .joy-con {
+        width: 80px;
+        height: 160px;
+        background: white;
+        position: relative;
+      }
+      .joy-con.left {
+        border-radius: 40px 0 0 40px;
+        transform: translateY(-30px);
+      }
+      .joy-con.left::after {
+        content: "";
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        width: 24px;
+        height: 24px;
+        background: #e60012;
+        border-radius: 50%;
+      }
+      .joy-con.right {
+        border-radius: 0 40px 40px 0;
+        transform: translateY(30px);
+      }
+      .joy-con.right::after {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        background: #e60012;
+        border-radius: 50%;
+      }
+      @keyframes snapDrop {
+        0% {
+          opacity: 0;
+          transform: scale(1.5);
+        }
+        60% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .joy-con.left {
+        animation: alignLeft 0.5s 0.8s forwards
+          cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .joy-con.right {
+        animation: alignRight 0.5s 0.8s forwards
+          cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      @keyframes alignLeft {
+        to {
+          transform: translateY(0);
+        }
+      }
+      @keyframes alignRight {
+        to {
+          transform: translateY(0);
+        }
+      }
+      .intro-text {
+        font-size: 2rem;
+        color: white;
+        font-weight: 700;
+        margin-top: 20px;
+        height: 40px;
+      }
+      .cursor {
+        border-right: 3px solid white;
+        animation: blink 0.8s infinite;
+      }
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      #menu-screen {
+        background: #f0f0f0;
+      }
+      .status-bar {
+        position: absolute;
+        top: 80px;
+        right: 40px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        color: #555;
+      }
+      .chip-list {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+        perspective: 1000px;
+      }
+      .game-card {
+        width: 240px;
+        height: 340px;
+        background: white;
+        border-radius: 8px;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+      }
+      .card-img {
+        flex: 1;
+        background-color: #333;
+        background-size: cover;
+        background-position: center;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+      .card-title {
+        height: 0;
+        overflow: hidden;
+        background: #fff;
+        color: #00c3e3;
+        font-weight: 900;
+        text-align: center;
+        line-height: 50px;
+        transition: height 0.2s;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+      .game-card:hover {
+        transform: scale(1.15);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border: 6px solid #00c3e3;
+        z-index: 10;
+      }
+      .game-card:hover .card-title {
+        height: 50px;
+      }
+
+      /* -----------------------------------------------------------
+           [PAGE 3] ABOUT 페이지 (동물의 숲 스타일) - ★ 수정됨
+        ----------------------------------------------------------- */
+      #about-page {
+        /* 영상 배경 */
+        position: relative;
+        overflow: hidden;
+      }
+      /* 배경 영상 스타일 */
+      .bg-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+      }
+      /* 말풍선 컨테이너 */
+      .dialogue-box {
+        position: absolute;
+        bottom:8%; /* 화면 아래에서 얼마나 띄울지 (수치 조절 가능) */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        max-width: 900px;
+        /* ★ 말풍선을 안 보이게  */
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        text-align: left; /* 텍스트 가운데 정렬 (필요시 left로 변경) */
+      }
+      /* 말풍선 꼬리표 제거 */
+      .dialogue-box::after,
+      .dialogue-box::before {
+        display: none;
+      }
+
+      /* 이름 스타일 (영상 위에 잘 보이게 그림자 추가) */
+      /* .speaker-name {
+        font-size: 1.2rem;
+        font-weight: 900;
+        color: #00c3e3;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); 
+    } */
+
+      /* 대화 내용 스타일 (영상 위에 잘 보이게 색상/그림자 조정) */
+      .dialogue-text {
+        font-size: 2.2rem; /* 글자 크기 키움 */
+        color: #695849; /* 흰색 글자 */
+        line-height: 2.0;
+        min-height: 100px;
+        font-weight: 900;
+        text-shadow: none;
+        word-break: keep-all;
+        /* padding-top: 100px; */
+      } 
+       
+
+      @keyframes blinkArrow {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0.3;
+        }
+      }
+
+      /* -----------------------------------------------------------
+           [PAGE 4] SKILLS 페이지 (포켓몬 스타일) - ★ 수정됨
+        ----------------------------------------------------------- */
+      #skills-page {
+        /* 포켓몬 파란색 그라데이션 배경 */
+        background: linear-gradient(135deg, #6a85b6 0%, #bac8e0 100%);
+      }
+      .pokemon-container {
+        width: 90%;
+        max-width: 600px;
+        background: rgba(255, 255, 255, 0.1); /* 반투명 컨테이너 */
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px); /* 블러 효과 */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      /* 헤더: '지닌 포켓몬' */
+      .pokemon-header {
+        display: flex;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 900;
+        margin-bottom: 20px;
+        padding-left: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .pokemon-header::before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="white" d="M256 48C141.1 48 48 141.1 48 256v.1c0 114.9 93.1 207.9 208 207.9 114.9 0 208-93.1 208-208V256c0-114.9-93.1-208-208-208zm0 40c92.8 0 168 75.2 168 168s-75.2 168-168 168-168-75.2-168-168S163.2 88 256 88zm0 40c-13.3 0-24 10.7-24 24v88h-88c-13.3 0-24 10.7-24 24s10.7 24 24 24h88v88c0 13.3 10.7 24 24 24s24-10.7 24-24v-88h88c13.3 0 24-10.7 24-24s-10.7-24-24-24h-88v-88c0-13.3-10.7-24-24-24z"/></svg>')
+          no-repeat center;
+        margin-right: 10px; /* 몬스터볼 아이콘 (간단히 SVG로 대체) */
+      }
+
+      /* 포켓몬 리스트 */
+      .pokemon-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      /* 개별 포켓몬 슬롯 스타일 */
+      .pokemon-slot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(0, 0, 0, 0.3); /* 어두운 반투명 배경 */
+        border-radius: 50px; /* 둥근 모양 */
+        padding: 10px 20px;
+        color: white;
+        transition: all 0.3s ease; /* 부드러운 전환 */
+        cursor: pointer;
+      }
+      /* ★ 마우스 호버 효과: 노랗게 변하고 커짐 */
+      .pokemon-slot:hover {
+        background: rgba(255, 215, 0, 0.8); /* 골드색 */
+        color: #333; /* 글자색 어둡게 */
+        transform: scale(1.05); /* 살짝 커짐 */
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+      }
+
+      /* 슬롯 내부 정보 레이아웃 */
+      .slot-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex: 1;
+      }
+      .slot-level {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #ccc;
+      }
+      .pokemon-slot:hover .slot-level {
+        color: #555;
+      }
+      .slot-name {
+        font-size: 1.2rem;
+        font-weight: 900;
+      }
+      /* 성별 아이콘 (더미) */
+      .gender-icon {
+        font-size: 0.8rem;
+      }
+      .gender-icon.male {
+        color: #4a90e2;
+      }
+      .gender-icon.female {
+        color: #e24a85;
+      }
+
+      /* 스킬 아이콘 (포켓몬 이미지 대신) */
+      .skill-icon {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)); /* 아이콘 그림자 */
+      }
+
+      /* -----------------------------------------------------------
+           [PAGE 5 & 6] 상세 페이지들 스타일 (기존 유지)
+        ----------------------------------------------------------- */
+      .detail-page {
+        background: #f5f5f5;
+      }
+      .page-content {
+        width: 80%;
+        max-width: 1100px;
+        background: white;
+        padding: 50px;
+        border-radius: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        animation: fadeIn 0.8s ease-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      h2 {
+        font-size: 3rem;
+        color: #e60012;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        font-weight: 900;
+      }
+
+      /* 반응형 */
+      @media (max-width: 768px) {
+        #main-container {
+          width: 600vw;
+        }
+        .joy-con {
+          width: 50px;
+          height: 100px;
+        }
+        .game-card {
+          width: 160px;
+          height: 240px;
+        }
+        .chip-list {
+          flex-wrap: wrap;
+        }
+        header {
+          padding: 0 20px;
+        }
+        .logo {
+          font-size: 1.2rem;
+        }
+        nav ul {
+          display: none;
+        }
+        .dialogue-box {
+          width: 90%;
+          bottom: 10%;
+          padding: 15px 20px;
+        }
+        .speaker-name {
+          font-size: 1rem;
+        }
+        .dialogue-text {
+          font-size: 0.9rem;
+        }
+        .pokemon-container {
+          width: 95%;
+        }
+        .pokemon-slot {
+          padding: 8px 15px;
+          border-radius: 30px;
+        }
+        .slot-name {
+          font-size: 1rem;
+        }
+        .skill-icon {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo" onclick="moveSlide(0)">A Jin's SWITCH</div>
+      <nav>
+        <ul>
+          <li onclick="moveSlide(2)">ABOUT</li>
+          <li onclick="moveSlide(3)">SKILLS</li>
+          <li onclick="moveSlide(4)">PROJECT</li>
+          <li onclick="moveSlide(5)">CONTACT</li>
+        </ul>
+      </nav>
+    </header>
+
+    <div id="main-container">
+      <section id="intro" onclick="moveSlide(1)">
+        <div class="switch-ani-box">
+          <div class="joy-con left"></div>
+          <div class="joy-con right"></div>
+        </div>
+        <div class="intro-text">
+          <span id="typing-intro"></span><span class="cursor"></span>
+        </div>
+        <p
+          style="
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 20px;
+            font-size: 0.9rem;
+          "
+        >
+          Click anywhere to Start
+        </p>
+      </section>
+
+      <section id="menu-screen">
+        <div class="status-bar">
+          <span>12:00 PM</span><span style="font-size: 1.2rem">🔋</span>
+        </div>
+        <div class="chip-list">
+          <div class="game-card" onclick="moveSlide(2)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://via.placeholder.com/300x450/00c3e3/ffffff?text=ABOUT&quot;);
+              "
+            ></div>
+            <div class="card-title">ABOUT</div>
+          </div>
+          <div class="game-card" onclick="moveSlide(3)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://via.placeholder.com/300x450/fbc02d/ffffff?text=SKILLS&quot;);
+              "
+            ></div>
+            <div class="card-title">SKILLS</div>
+          </div>
+          <div class="game-card" onclick="moveSlide(4)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://via.placeholder.com/300x450/e60012/ffffff?text=PROJECT&quot;);
+              "
+            ></div>
+            <div class="card-title">PROJECT</div>
+          </div>
+          <div class="game-card" onclick="moveSlide(5)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://via.placeholder.com/300x450/4caf50/ffffff?text=CONTACT&quot;);
+              "
+            ></div>
+            <div class="card-title">CONTACT</div>
+          </div>
+        </div>
+        <h3 style="color: #888; margin-top: 20px; font-weight: 500">
+          Select Your Cartridge
+        </h3>
+      </section>
+
+      <section id="about-page">
+        <video class="bg-video" id="about-video"autoplay muted playsinline>
+          <source src="../여울최초치최종.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        <div class="dialogue-box">
+          <div class="speaker-name"></div>
+          <div class="dialogue-text" id="about-dialogue"></div>
+          <div class="next-arrow"></div>
+        </div>
+      </section>
+
+      <section id="skills-page">
+        <div class="pokemon-container">
+          <div class="pokemon-header">지닌 SKIILS</div>
+          <ul class="pokemon-list">
+            <li class="pokemon-slot">
+              <div class="slot-info">
+                <span class="slot-level">Lv.90</span>
+                <span class="slot-name">HTML5</span>
+                <span class="gender-icon male">♂</span>
+              </div>
+              <img src="image_20.png" alt="HTML5" class="skill-icon" />
+            </li>
+            <li class="pokemon-slot">
+              <div class="slot-info">
+                <span class="slot-level">Lv.85</span>
+                <span class="slot-name">CSS3</span>
+                <span class="gender-icon female">♀</span>
+              </div>
+              <img src="image_21.png" alt="CSS3" class="skill-icon" />
+            </li>
+            <li class="pokemon-slot">
+              <div class="slot-info">
+                <span class="slot-level">Lv.80</span>
+                <span class="slot-name">JavaScript</span>
+                <span class="gender-icon male">♂</span>
+              </div>
+              <img src="image_22.png" alt="JavaScript" class="skill-icon" />
+            </li>
+            <li class="pokemon-slot">
+              <div class="slot-info">
+                <span class="slot-level">Lv.75</span>
+                <span class="slot-name">React</span>
+                <span class="gender-icon female">♀</span>
+              </div>
+              <img src="image_23.png" alt="React" class="skill-icon" />
+            </li>
+            <li class="pokemon-slot" style="opacity: 0.5; cursor: default">
+              <div class="slot-info">
+                <span class="slot-level">Lv.--</span>
+                <span class="slot-name">???</span>
+              </div>
+              <div
+                style="
+                  width: 50px;
+                  height: 50px;
+                  background: rgba(0, 0, 0, 0.2);
+                  border-radius: 50%;
+                "
+              ></div>
+            </li>
+            <li class="pokemon-slot" style="opacity: 0.5; cursor: default">
+              <div class="slot-info">
+                <span class="slot-level">Lv.--</span>
+                <span class="slot-name">???</span>
+              </div>
+              <div
+                style="
+                  width: 50px;
+                  height: 50px;
+                  background: rgba(0, 0, 0, 0.2);
+                  border-radius: 50%;
+                "
+              ></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="detail-page">
+        <div class="page-content">
+          <h2>PROJECTS</h2>
+          <p>진행했던 프로젝트를 소개합니다.</p>
+          <div
+            style="
+              margin-top: 30px;
+              height: 300px;
+              background: #ddd;
+              border-radius: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            이미지 넣는 곳
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-page">
+        <div class="page-content">
+          <h2>CONTACT</h2>
+          <p>함께 성장할 준비가 되어 있습니다.</p>
+          <div style="margin-top: 30px; font-size: 1.3rem">
+            <p>Email: ajin@example.com</p>
+            <p>Phone: 010-0000-0000</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // [기능 1] 슬라이드 이동 함수
+      function moveSlide(index) {
+        const container = document.getElementById("main-container");
+        container.style.transform = `translateX(-${index * 100}vw)`;
+
+        // ★ ABOUT 페이지(2번)로 가면 동영상과 타이핑 시작
+        if (index === 2) {
+          startAboutSequence();
+        }
+      }
+
+      // [기능 2] 인트로 화면 타이핑 (수정 X)
+      const introTextStr = "A Jin's SWITCH World";
+      const introTypingEl = document.getElementById("typing-intro");
+      let introIndex = 0;
+      function typeIntro() {
+        if (introIndex < introTextStr.length) {
+          introTypingEl.innerHTML += introTextStr.charAt(introIndex);
+          introIndex++;
+          setTimeout(typeIntro, 100);
+        }
+      }
+      window.onload = function () {
+        setTimeout(typeIntro, 1200);
+      };
+
+      // =========================================================
+      // ★ [수정됨] ABOUT 페이지 로직 (영상 반복 + 텍스트 리셋)
+      // =========================================================
+
+      const aboutText =
+        "안녕하세요! 웹 개발자 A Jin입니다.\n 누구보다도 감각적인 개발에 자신 있습니다.\n 궁금하신 곳을 클릭해주세요!";
+      const aboutEl = document.getElementById("about-dialogue");
+      const aboutVideo = document.getElementById("about-video");
+
+      let aboutIdx = 0;
+      let aboutTimer;
+      let isRunning = false; // 중복 실행 방지용
+
+      // 1. ABOUT 페이지 진입 시 실행되는 함수
+      function startAboutSequence() {
+        if (isRunning) return; // 이미 실행 중이면 패스
+        isRunning = true;
+
+        // 영상 처음부터 재생
+        aboutVideo.currentTime = 0;
+        aboutVideo.play();
+
+        // 텍스트 초기화 후 타이핑 시작
+        resetText();
+        // ★ 말풍선이 나오는 타이밍에 맞춰 0.5초(500) 뒤에 글자 쓰기 시작 (조절 가능)
+        setTimeout(typeAbout, 500);
+      }
+
+      // 2. ★ 영상이 끝나면(ended) -> 텍스트 지우고 -> 다시 처음부터 실행
+      aboutVideo.addEventListener("ended", function () {
+        // 텍스트 싹 지우기
+        resetText();
+
+        // 영상 다시 재생
+        aboutVideo.currentTime = 0;
+        aboutVideo.play();
+
+        // 다시 타이핑 시작 (0.5초 뒤)
+        setTimeout(typeAbout, 500);
+      });
+
+      // 3. 타이핑 효과 함수 (속도 빠르게 설정됨)
+      function typeAbout() {
+        if (aboutIdx < aboutText.length) {
+          // 줄바꿈 처리
+          let char = aboutText.charAt(aboutIdx);
+          aboutEl.innerHTML += char === "\n" ? "<br/>" : char;
+
+          aboutIdx++;
+          // ★ 여기서 타이핑 속도 조절 (숫자가 작을수록 빠름. 현재 50)
+          aboutTimer = setTimeout(typeAbout, 70);
+        }
+      }
+
+      // 4. 텍스트 초기화 함수
+      function resetText() {
+        clearTimeout(aboutTimer);
+        aboutEl.innerHTML = "";
+        aboutIdx = 0;
+      }
+    </script>
+  </body>
+</html>
