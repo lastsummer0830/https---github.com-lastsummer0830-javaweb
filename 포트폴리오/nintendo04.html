@@ -30,11 +30,11 @@
 
         @media (max-width: 1024px) {
             html {
-            /* 1024px 화면에서의 16px 비율 (약 1.56vw) 
+                /* 1024px 화면에서의 16px 비율 (약 1.56vw) 
            이게 있어야 화면이 줄어들 때 rem 단위들이 같이 작아집니다. */
-             font-size: 1.5625vw;
-    }
-}
+                font-size: 1.5625vw;
+            }
+        }
 
         /* [2. 헤더 (상단바)] */
         header {
@@ -111,17 +111,25 @@
         /* -----------------------------------------------------------
            [PAGE 1 & 2] 인트로 및 메뉴 (기존 코드 유지)
         ----------------------------------------------------------- */
+        /* -----------------------------------------------------------
+   [PAGE 1 & 2] 인트로 및 메뉴 (무한 리플레이 수정본)
+----------------------------------------------------------- */
         #intro {
             background-color: #e60012;
         }
 
+        /* 애니메이션 박스 기본 상태 (숨김) */
         .switch-ani-box {
             display: flex;
             gap: 10px;
             margin-bottom: 40px;
-            animation: snapDrop 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
             opacity: 0;
             transform: translateY(-50px);
+        }
+
+        /* ★ 핵심: .replay 클래스가 붙었을 때만 애니메이션 실행 */
+        .replay .switch-ani-box {
+            animation: snapDrop 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
         }
 
         .joy-con {
@@ -163,6 +171,16 @@
             border-radius: 50%;
         }
 
+        /* 조이콘 합체 애니메이션도 .replay가 있을 때만 실행 */
+        .replay .joy-con.left {
+            animation: alignLeft 0.5s 0.8s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .replay .joy-con.right {
+            animation: alignRight 0.5s 0.8s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* 키프레임 정의 (기존과 동일) */
         @keyframes snapDrop {
             0% {
                 opacity: 0;
@@ -180,14 +198,6 @@
             }
         }
 
-        .joy-con.left {
-            animation: alignLeft 0.5s 0.8s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .joy-con.right {
-            animation: alignRight 0.5s 0.8s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
         @keyframes alignLeft {
             to {
                 transform: translateY(0);
@@ -200,6 +210,7 @@
             }
         }
 
+        /* 텍스트 영역 */
         .intro-text {
             font-size: 2rem;
             color: white;
@@ -222,6 +233,8 @@
         #menu-screen {
             background: #f0f0f0;
         }
+
+        /* (이 아래 .status-bar, .chip-list 등은 건드리지 마세요) */
 
         .status-bar {
             position: absolute;
@@ -530,8 +543,190 @@
         }
 
         /* -----------------------------------------------------------
-           [PAGE 5 & 6] 상세 페이지들 스타일 (기존 유지)
+           [PAGE 5 ] 마리오 project 페이지 스타일 
         ----------------------------------------------------------- */
+
+        /* =========================================================
+   [PAGE 5] PROJECT 페이지 (마리오 스타일)
+   ========================================================= */
+
+        /* 1. 배경 및 레이아웃 설정 */
+        #project-page {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 100px;
+            /* 헤더 아래 공간 */
+
+            /* 눈이 편안한 소프트 화이트 배경 */
+            background-color: #f8f9fa;
+            overflow: hidden;
+        }
+
+        #project-page h2 {
+            font-family: "GalmuriFont";
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 0.1rem;
+            color: #e60012;
+            /* 닌텐도 레드 */
+            font-weight: 900;
+            margin-bottom: 20px;
+            z-index: 10;
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        /* 2. 3x3 박스 그리드 컨테이너 */
+        .grid-container {
+            display: grid;
+            /* 가로 3칸, 세로 3칸 */
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 20px;
+            /* 박스 사이 간격 */
+
+            width: 90%;
+            max-width: 600px;
+            height: 50vh;
+            z-index: 5;
+            perspective: 1000px;
+            /* 3D 효과 */
+        }
+
+        /* 3. 개별 카드 (링크) */
+        .project-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 카드의 회전판 */
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            /* border-radius: 15px; */
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
+        }
+
+        /* ★ 호버 효과: 뒤집히면서(rotateY) 커짐(scale) */
+        .project-card:hover .card-inner {
+            transform: rotateY(180deg) scale(1.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border: none;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        /* .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        } */
+
+        /* 4. 앞면 (물음표 박스) */
+        /* .card-front {
+            background-color: #ffcc00;
+            border: 4px solid #e69500;
+        } */
+
+        .card-front img {
+            width: 100%;
+            height: 1;
+            object-fit: contain;
+            /* 🎀object-fit: contain; 이미지가 잘리지않고 비율 유지하며 전체가 다 보이게 설정 */
+        }
+
+        /* 5. 뒷면 (프로젝트 사진) */
+        .card-back {
+            transform: rotateY(180deg);
+            border: 4px solid #e60012;
+            border-radius: 15px;
+        }
+
+        .card-back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 6. 하단 마리오 이미지 */
+        .bottom-deco {
+            position: absolute;
+
+            /* 1. 위치 고정 */
+            bottom: -80%;
+            left: 50%;
+            transform: translateX(-50%);
+            /* 정확히 가운데 정렬 */
+
+            /* 2. ★ 핵심: vw, vh 원리 적용 ★ */
+            /* "너비가 모자라면 너비를 화면만큼 늘리고, 높이가 모자라면 높이를 화면만큼 늘려라" */
+            min-width: 100%;
+            min-height: 100%;
+
+            /* 3. 비율 유지 */
+            /* 어느 한쪽이 강제로 늘어나도, 찌그러지지 않고 비율을 유지하며 커짐 */
+            width: auto;
+            height: auto;
+
+            /* 4. 화면을 덮는 방식 */
+            /* 이미지가 화면보다 커질 경우, 넘치는 부분은 잘라내고 '중앙 하단(마리오들)' 위주로 보여줌 */
+            object-fit: fill;
+            object-position: top center;
+
+            /* 기타 설정 */
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        /* 모바일 대응 */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                height: 40vh;
+            }
+        }
+
+        /* -----------------------------------------------------------
+           [PAGE 6]  젤다 contact 스타일 
+        ----------------------------------------------------------- */
+
+
         .detail-page {
             background: #f5f5f5;
         }
@@ -661,7 +856,7 @@
             margin-top: 20px;
             font-size: 0.9rem;
           ">
-                Click anywhere to Start
+                Click anywhere to Start! ⇪
             </p>
         </section>
 
@@ -787,37 +982,127 @@
                     </li>
                 </ul>
             </div>
-    </section>
+        </section>
 
-    <section class="detail-page">
-        <div class="page-content">
+        <!------------------- project 페이지  ------------------------------>
+        <section id="project-page">
             <h2>PROJECTS</h2>
-            <p>진행했던 프로젝트를 소개합니다.</p>
-            <div style="
-              margin-top: 30px;
-              height: 300px;
-              background: #ddd;
-              border-radius: 10px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            ">
-                <img src="https://www.nintendo.com/kr/switch/aqmxa/assets/img/top/feature_pic_sp.png" aly="마리오">
-                <!-- 이미지 넣는 곳 -->
-            </div>
-        </div>
-    </section>
 
-    <section class="detail-page">
-        <div class="page-content">
-            <h2>CONTACT</h2>
-            <p>함께 성장할 준비가 되어 있습니다.</p>
-            <div style="margin-top: 30px; font-size: 1.3rem">
-                <p>Email: ajin@example.com</p>
-                <p>Phone: 010-0000-0000</p>
+            <div class="grid-container">
+
+                <a href="https://www.google.com" target="_blank" class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="../images/슈퍼마리오박스.png" alt="?">
+                        </div>
+                        <div class="card-back">
+                            <img src="https://via.placeholder.com/300/e60012/ffffff?text=MY+PROJECT+1" alt="Project 1">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="../images/슈퍼마리오박스.png" alt="?">
+                        </div>
+                        <div class="card-back">
+                            <img src="https://via.placeholder.com/300/00c3e3/ffffff?text=MY+PROJECT+2" alt="Project 2">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="../images/슈퍼마리오박스.png" alt="?">
+                        </div>
+                        <div class="card-back">
+                            <img src="https://via.placeholder.com/300/4caf50/ffffff?text=MY+PROJECT+3" alt="Project 3">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="../images/슈퍼마리오박스.png" alt="?">
+                        </div>
+                        <div class="card-back">
+                            <img src="https://via.placeholder.com/300/ff9800/ffffff?text=MY+PROJECT+4" alt="Project 4">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="../images/슈퍼마리오박스.png" alt="?">
+                        </div>
+                        <div class="card-back">
+                            <img src="https://via.placeholder.com/300/9c27b0/ffffff?text=MY+PROJECT+5" alt="Project 5">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="../images/슈퍼마리오박스.png" alt="?">
+                        </div>
+                        <div class="card-back">
+                            <img src="https://via.placeholder.com/300/3f51b5/ffffff?text=MY+PROJECT+6" alt="Project 6">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="../images/슈퍼마리오박스.png" alt="?">
+                        </div>
+                        <div class="card-back">
+                            <img src="https://via.placeholder.com/300/795548/ffffff?text=MY+PROJECT+7" alt="Project 7">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="../images/슈퍼마리오박스.png" alt="?">
+                        </div>
+                        <div class="card-back">
+                            <img src="https://via.placeholder.com/300/607d8b/ffffff?text=MY+PROJECT+8" alt="Project 8">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="../images/슈퍼마리오박스.png" alt="?">
+                        </div>
+                        <div class="card-back">
+                            <img src="https://via.placeholder.com/300/000000/ffffff?text=MY+PROJECT+9" alt="Project 9">
+                        </div>
+                    </div>
+                </a>
+
+            </div> <img class="bottom-deco" src="https://www.nintendo.com/kr/switch/aqmxa/assets/img/top/mv_bg.jpg"
+                alt="Mario Deco">
+        </section>
+
+        <section class="detail-page">
+            <div class="page-content">
+                <h2>CONTACT</h2>
+                <p>함께 성장할 준비가 되어 있습니다.</p>
+                <div style="margin-top: 30px; font-size: 1.3rem">
+                    <p>Email: ajin@example.com</p>
+                    <p>Phone: 010-0000-0000</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
     </div>
 
     <script>
@@ -833,20 +1118,46 @@
         }
 
         // [기능 2] 인트로 화면 타이핑 (수정 X)
+        /* [기능 2] 인트로 타이핑 무한 반복 수정본 */
+        // [기능 2] 인트로 화면 무한 리플레이 (조이콘 + 타이핑 무한 반복)
         const introTextStr = "A Jin's SWITCH World";
         const introTypingEl = document.getElementById("typing-intro");
+        const introSection = document.getElementById("intro");
         let introIndex = 0;
-        function typeIntro() {
+
+        // ★ 메인 루프 함수
+        function playIntroLoop() {
+            // 1. 초기화 (Reset): 애니메이션 끄고 텍스트 지움
+            introSection.classList.remove("replay");
+            introTypingEl.innerHTML = "";
+            introIndex = 0;
+
+            // 2. 강제 리플로우 (브라우저가 '지워졌다'는 걸 인식하게 함)
+            void introSection.offsetWidth;
+
+            // 3. 애니메이션 시작 (Start): 조이콘 떨어짐
+            introSection.classList.add("replay");
+
+            // 4. 타이핑 시작 (조이콘이 떨어진 후 0.8초 뒤부터 타이핑)
+            setTimeout(typeText, 800);
+        }
+
+        // 타이핑 함수 (한 글자씩 씀)
+        function typeText() {
             if (introIndex < introTextStr.length) {
                 introTypingEl.innerHTML += introTextStr.charAt(introIndex);
                 introIndex++;
-                setTimeout(typeIntro, 100);
+                setTimeout(typeText, 100);
+            } else {
+                // 문장이 완성되면? -> 3초 대기 후 다시 처음(Reset)으로!
+                setTimeout(playIntroLoop, 3000);
             }
         }
-        window.onload = function () {
-            setTimeout(typeIntro, 1200);
-        };
 
+        // 페이지 로드 시 최초 실행
+        window.onload = function () {
+            setTimeout(playIntroLoop, 500);
+        };
         // =========================================================
         // ★ [수정됨] ABOUT 페이지 로직 (영상 반복 + 텍스트 리셋)
         // =========================================================
