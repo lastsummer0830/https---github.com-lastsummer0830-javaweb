@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Jin's SWITCH Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @font-face {
+        font-family: "GalmuriFont";
+        src: url("../GalmuriMono9.ttf") format("truetype");
+      }
+
+      /* [1. 전체 설정] */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #2d2d2d;
+      }
+
+      /* [2. 헤더] */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        z-index: 1000;
+        background: linear-gradient(
+          180deg,
+          rgba(104, 103, 103, 0.8) 0%,
+          transparent 100%
+        );
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #fff;
+        cursor: pointer;
+        text-shadow: 0 2px 4px rgba(68, 68, 68, 0.5);
+        transition: transform 0.2s;
+      }
+
+      .logo:hover {
+        transform: scale(1.05);
+        color: #e60012;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+      }
+
+      nav ul li {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ccc;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      nav ul li:hover {
+        color: #00c3e3;
+      }
+
+      /* [3. 슬라이드 컨테이너] */
+      #main-container {
+        display: flex;
+        width: 600vw;
+        height: 100vh;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      section {
+        width: 100vw;
+        height: 100vh;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* [PAGE 1] 인트로 */
+      #intro {
+        background-color: #e60012;
+      }
+      .switch-ani-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 40px;
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      .replay .switch-ani-box {
+        animation: snapDrop 0.8s forwards;
+      }
+      .joy-con {
+        width: 80px;
+        height: 160px;
+        background: white;
+        position: relative;
+      }
+      .joy-con.left {
+        border-radius: 40px 0 0 40px;
+        transform: translateY(-30px);
+      }
+      .joy-con.left::after {
+        content: "";
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        width: 24px;
+        height: 24px;
+        background: #e60012;
+        border-radius: 50%;
+      }
+      .joy-con.right {
+        border-radius: 0 40px 40px 0;
+        transform: translateY(30px);
+      }
+      .joy-con.right::after {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        background: #e60012;
+        border-radius: 50%;
+      }
+      .replay .joy-con.left {
+        animation: alignLeft 0.5s 0.8s forwards;
+      }
+      .replay .joy-con.right {
+        animation: alignRight 0.5s 0.8s forwards;
+      }
+      @keyframes snapDrop {
+        0% {
+          opacity: 0;
+          transform: scale(1.5);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes alignLeft {
+        to {
+          transform: translateY(0);
+        }
+      }
+      @keyframes alignRight {
+        to {
+          transform: translateY(0);
+        }
+      }
+      .intro-text {
+        font-size: 2rem;
+        color: white;
+        font-weight: 700;
+        margin-top: 20px;
+        height: 40px;
+      }
+      .cursor {
+        border-right: 3px solid white;
+        animation: blink 0.8s infinite;
+      }
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      /* [PAGE 2] 메뉴 */
+      #menu-screen {
+        background: #f0f0f0;
+      }
+      .status-bar {
+        position: absolute;
+        top: 80px;
+        right: 40px;
+        display: flex;
+        gap: 15px;
+        color: #555;
+      }
+      .chip-list {
+        display: flex;
+        gap: 25px;
+        padding: 40px 0;
+      }
+      .game-card {
+        width: 240px;
+        height: 340px;
+        background: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-img {
+        flex: 1;
+        background-size: cover;
+        background-position: center;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+      .card-title {
+        height: 0;
+        overflow: hidden;
+        background: #fff;
+        color: #00c3e3;
+        font-weight: 900;
+        text-align: center;
+        line-height: 50px;
+        transition: height 0.2s;
+      }
+      .game-card:hover {
+        transform: scale(1.1);
+        border: 6px solid #00c3e3;
+      }
+      .game-card:hover .card-title {
+        height: 50px;
+      }
+
+      /* -----------------------------------------------------------
+           [PAGE 3] ABOUT 페이지 (여울) - 텍스트 위치 및 이탈 수정
+        ----------------------------------------------------------- */
+      #about-page {
+        position: relative;
+        background-color: #000; /* 동영상 로딩 전 배경 */
+      }
+
+      .bg-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 화면을 꽉 채우도록 설정 */
+        z-index: 1;
+      }
+      /* 말풍선 컨테이너 */
+        .dialogue-box {
+            position: absolute;
+            bottom: 4%;
+            /* 화면 아래에서 얼마나 띄울지  */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            max-width: 900px;
+            /* ★ 말풍선을 안 보이게  */
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            /* 텍스트 가운데 정렬 (필요시 left로 변경) */
+        }
+
+        /* 말풍선 꼬리표 제거 */
+        .dialogue-box::after,
+        .dialogue-box::before {
+            display: none;
+        }
+
+        /* 이름 스타일 (영상 위에 잘 보이게 그림자 추가) */
+        /* .speaker-name {
+        font-size: 1.2rem;
+        font-weight: 900;
+        color: #00c3e3;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); 
+    } */
+
+        /* 대화 내용 스타일 (영상 위에 잘 보이게 색상/그림자 조정) */
+        .dialogue-text {
+            /* font-size: 3.4vw; */
+            font-size: clamp(16px, 3.4vw, 40px);
+            /* 글자 크기 키움 */
+            color: #695849;
+            /* 흰색 글자 */
+            line-height: 1.6;
+            /* height: 30vw; */
+            height: clamp(120px, 30vw, 250px);
+            font-weight: 900;
+            text-shadow: none;
+            word-break: keep-all;
+            overflow: hidden;
+            /* padding-top: 100px; */
+        }
+
+
+      
+
+      /* -----------------------------------------------------------
+           [PAGE 5] PROJECT 페이지 (마리오) - 배경 투명도 수정
+        ----------------------------------------------------------- */
+      #project-page {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 100px;
+        background-color: #f8f9fa;
+        overflow: hidden;
+      }
+
+      #project-page h2 {
+        font-family: "GalmuriFont";
+        font-size: 3rem;
+        color: #e60012;
+        font-weight: 900;
+        margin-bottom: 20px;
+        z-index: 10;
+        text-shadow: 2px 2px 0px #fff;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 20px;
+        width: 90%;
+        max-width: 600px;
+        height: 50vh;
+        z-index: 5;
+        perspective: 1000px;
+      }
+
+      .project-card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        transform-style: preserve-3d;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+      }
+
+      .project-card:hover .card-inner {
+        transform: rotateY(180deg) scale(1.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+      }
+
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border: none;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+      }
+
+      /* ★ 수정: 오타 수정 및 이미지 꽉 채우기 */
+      .card-front img {
+        width: 100%;
+        height: 100%; /* 기존 1 -> 100% 로 수정 */
+        object-fit: contain; /* 비율 유지하며 박스 안에 쏙 */
+      }
+
+      .card-back {
+        transform: rotateY(180deg);
+        border: 4px solid #e60012;
+        border-radius: 15px;
+        background: white;
+      }
+
+      .card-back img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* ★ 수정: 하단 배경 이미지가 빈틈없이 꽉 차도록 설정 */
+      .bottom-deco {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+
+        /* 가로/세로 중 부족한 쪽을 기준으로 꽉 채움 */
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+
+        object-fit: cover;
+        object-position: bottom center;
+
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.9;
+      }
+
+      /* [기타 페이지 스타일 유지] */
+      #skills-page {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        isolation: isolate;
+      }
+      #skills-page::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("https://data1.pokemonkorea.co.kr/newdata/2025/02/2025-02-27_23-09-57-73467-1740665397.png")
+            center/cover;
+        z-index: -1;
+      }
+      .pokemon-container {
+        width: 100%;
+        max-width: 700px;
+        background: rgba(114, 98, 194, 0.4);
+        padding: 40px;
+        border-radius: 40px;
+      }
+      .pokemon-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .pokemon-slot {
+        background: rgba(60, 50, 110, 0.75);
+        border-radius: 15px;
+        padding: 15px 25px;
+        display: flex;
+        flex-direction: column;
+        color: white;
+      }
+      .slot-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .slot-name {
+        font-family: "GalmuriFont";
+        font-size: 1.2rem;
+      }
+      .skill-icon {
+        width: 50px;
+        height: 50px;
+      }
+      .slot-exp-track {
+        width: 100%;
+        height: 6px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        margin-top: 10px;
+      }
+      .slot-exp-fill {
+        height: 100%;
+        background: #00eaff;
+      }
+
+      .detail-page {
+        background: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .page-content {
+        width: 80%;
+        max-width: 800px;
+        background: white;
+        padding: 50px;
+        border-radius: 30px;
+        text-align: center;
+      }
+      h2 {
+        font-size: 2.5rem;
+        color: #e60012;
+        margin-bottom: 20px;
+        font-weight: 900;
+      }
+
+      /* 반응형 모바일 */
+      @media (max-width: 768px) {
+        .dialogue-box {
+          height: 25vh;
+          bottom: 5%;
+        }
+        .dialogue-text {
+          font-size: 16px;
+        }
+        .grid-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      /* ★ [핵심수정] 1024px 이상 전체창일 때만 적용되는 규칙 ★ */
+     
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo" onclick="moveSlide(0)">A Jin's SWITCH</div>
+      <nav>
+        <ul>
+          <li onclick="moveSlide(2)">ABOUT</li>
+          <li onclick="moveSlide(3)">SKILLS</li>
+          <li onclick="moveSlide(4)">PROJECT</li>
+          <li onclick="moveSlide(5)">CONTACT</li>
+        </ul>
+      </nav>
+    </header>
+
+    <div id="main-container">
+      <section id="intro" onclick="moveSlide(1)">
+        <div class="switch-ani-box">
+          <div class="joy-con left"></div>
+          <div class="joy-con right"></div>
+        </div>
+        <div class="intro-text">
+          <span id="typing-intro"></span><span class="cursor"></span>
+        </div>
+        <p style="color: rgba(255, 255, 255, 0.7); margin-top: 20px">
+         Click anywhere to Start! ⇪
+        </p>
+      </section>
+
+      <section id="menu-screen">
+        <div class="status-bar"><span>12:00 PM</span><span>🔋</span></div>
+        <div class="chip-list">
+          <div class="game-card" onclick="moveSlide(2)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(https://images.ctfassets.net/sjvy5j5nlcjk/3Rup4rQtUZIFheoXvZZ4IT/3379b9117265aa9d25f03a1e7e30ca5a/720x594.jpg?w=735&fm=webp);
+              "
+            ></div>
+            <div class="card-title">ABOUT</div>
+          </div>
+          <div class="game-card" onclick="moveSlide(3)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(https://store.nintendo.co.kr/media/catalog/product/cache/3be328691086628caca32d01ffcc430a/2/9/298f080377131f2981b05d4ebf7dca5ae45c59f84bdf703f9e499392587db17c_1.jpg);
+              "
+            ></div>
+            <div class="card-title">SKILLS</div>
+          </div>
+          <div class="game-card" onclick="moveSlide(4)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(https://images.ctfassets.net/sjvy5j5nlcjk/iUKhi9rRpjg2A5DYzyhjs/eaf4c68f1a5165a08df35a4609c6ebcd/mariobroswonder_thumb.jpg?w=735&fm=webp);
+              "
+            ></div>
+            <div class="card-title">PROJECT</div>
+          </div>
+          <div class="game-card" onclick="moveSlide(5)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(https://images.ctfassets.net/sjvy5j5nlcjk/7xdO9mFHSNyrbCLaect6kl/f2168a8716749ef7d057960d491f50ee/zelda_totk_sp.png?w=735&fm=webp);
+              "
+            ></div>
+            <div class="card-title">CONTACT</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about-page">
+        <video
+          class="bg-video"
+          id="about-video"
+          autoplay
+          muted
+          playsinline
+          loop
+        >
+          <source src="../여울최초치최종.mp4" type="video/mp4" />
+        </video>
+        <div class="dialogue-box">
+          <div class="dialogue-text" id="about-dialogue"></div>
+        </div>
+      </section>
+
+      <section id="skills-page">
+        <div class="pokemon-container">
+          <div class="pokemon-list">
+            <li class="pokemon-slot">
+              <div class="slot-top-row">
+                <span class="slot-name">HTML5 / CSS3</span>
+                <img
+                  src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/044801.png"
+                  class="skill-icon"
+                />
+              </div>
+              <div class="slot-exp-track">
+                <div class="slot-exp-fill" style="width: 90%"></div>
+              </div>
+            </li>
+            <li class="pokemon-slot">
+              <div class="slot-top-row">
+                <span class="slot-name">JavaScript</span>
+                <img
+                  src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/044501.png"
+                  class="skill-icon"
+                />
+              </div>
+              <div class="slot-exp-track">
+                <div class="slot-exp-fill" style="width: 85%"></div>
+              </div>
+            </li>
+          </div>
+        </div>
+      </section>
+
+      <section id="project-page">
+        <h2 style="z-index: 10">PROJECTS</h2>
+        <div class="grid-container">
+          <a href="#" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="Box" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="https://via.placeholder.com/300/e60012/ffffff?text=PROJECT+1"
+                />
+              </div>
+            </div>
+          </a>
+        </div>
+        <img
+          class="bottom-deco"
+          src="https://www.nintendo.com/kr/switch/aqmxa/assets/img/top/mv_bg.jpg"
+          alt="Mario Deco"
+        />
+      </section>
+
+      <section class="detail-page">
+        <div class="page-content">
+          <h2>CONTACT</h2>
+          <p>Email: ajin@example.com</p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      function moveSlide(index) {
+        document.getElementById("main-container").style.transform =
+          `translateX(-${index * 100}vw)`;
+        if (index === 2) startAboutSequence();
+      }
+
+      // 인트로 타이핑 로직
+      const introTextStr = "A Jin's SWITCH World";
+      const introTypingEl = document.getElementById("typing-intro");
+      let introIdx = 0;
+      function typeIntro() {
+        if (introIdx < introTextStr.length) {
+          introTypingEl.innerHTML += introTextStr.charAt(introIdx++);
+          setTimeout(typeIntro, 100);
+        }
+      }
+      window.onload = () => {
+        document.getElementById("intro").classList.add("replay");
+        typeIntro();
+      };
+
+      // 여울 타이핑 로직
+      const aboutText =
+        "안녕하세요! 오늘 소개 해드릴 분은 \n 웹 개발자 A Jin님입니다. 감각적인 개발에 자신있으신 분이에요! 궁금하신 곳을 클릭해주세요!";
+      const aboutEl = document.getElementById("about-dialogue");
+      let aboutIdx = 0;
+      function startAboutSequence() {
+        aboutEl.innerHTML = "";
+        aboutIdx = 0;
+        typeAbout();
+      }
+      function typeAbout() {
+        if (aboutIdx < aboutText.length) {
+          let char = aboutText.charAt(aboutIdx++);
+          aboutEl.innerHTML += char === "\n" ? "<br/>" : char;
+          setTimeout(typeAbout, 50);
+        }
+      }
+    </script>
+  </body>
+</html>
