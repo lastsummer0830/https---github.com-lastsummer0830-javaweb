@@ -3,53 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>flex: 1;</title>
+    <title>flex: 1; 예제</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        body{
+        body {
             background-color: #111;
             color: #fff;
         }
-        header{
+        header {
             width: 100%;
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-            url(../images/데이지수영장.jpg) center no-repeat;
-            /* gradient를 두번 줘서 투명도 느낌의 배경을 만들어줌 
-            뒤에 이미지 삽입도 추가로 가능. */
-            background-size: cover; /* 전체를 다 덮어주는 사이즈 (이미지가)*/
+                        url('../images/데이지수영장.jpg') center no-repeat;
+            background-size: cover;
         }
-        nav{
+        nav {
             display: flex;
-            justify-content: space-between; /* 맨 위 양쪽 내용 서로 떨어트려주기*/
+            justify-content: space-between;
             align-items: center;
             padding: 10px 0;
         }
-        .add-email{
+        .add-email {
             background-color: #fff;
             border-radius: 4px;
             margin-top: 30px;
             display: flex;
             align-items: center;
-            /* overflow: hidden; */
+            overflow: hidden;
         }
-        .add-email input{
-            border: 0; /*이메일 주소 테두리 없어짐*/
+        .add-email input {
+            border: 0;
             outline: 0;
             margin-left: 20px;
-            flex: 1;
-             /* 🌸
-             flex: 1 1 auto; 적용(화면 크기에 따라 사이즈가 꽉 채워지게 함)
-             grow:1; 남은 빈 공간을 모두 채우며 커짐.
-             shirink1; 공간이 부족할 때 다른 요소와 함께 줄어듬.
-             basis:0; 요소의 기본 크기 0으로 간주, 
-                      처음부터 공간을 공평하게 배분한다.  */
+            flex: 1; 
         }
-        .add-email button{
+        .add-email button {
             border: 0;
             background-color: #db0001;
             color: #fff;
@@ -65,7 +57,7 @@
             <h1>원두정기구독</h1>
             <div>
                 <button class="lang">🌐</button>
-                <button>로그</button>
+                <button>로그인</button>
             </div>
         </nav>
         <div class="header-content">
