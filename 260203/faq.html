@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> faq </title>
+    <style>
+        .faq{
+            max-width: 800px; /* 🌸가장 큰 가로 사이즈 */
+            margin: 60px auto;
+        }
+        .accordion{
+            list-style: none;
+        }
+        .accordion li{
+            margin-bottom: 8px;
+        }
+        .accordion input{
+            display: none;
+        }
+        .accordion label{
+            background: #47c252;
+            cursor: pointer;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .accordion label::after{
+            content: "+";
+            font-size: 30px;
+            transition: 0.3s; /* 🌸rotate의 속도(+버튼이 회전하는 것처럼 보이게 해줌) */
+        }
+        .accordion .content{
+            background: #a0d279;
+            padding: 0 16px;
+            /* 🌸숨겨있다가 서서히 나타날 부분 */
+            transition: 0.3s;
+            /* 🌸밖으로 삐져나오는 텍스트 숨김 */
+            overflow: hidden;
+            /* 🌸닫혀 있을 때 높이 0 */
+            max-height: 0;
+        }
+        .accordion input:checked + label + .content{
+            max-height: 200px;
+            padding: 16px;
+        }
+        .accordion input:checked + label::after{
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <section class="faq">
+        <h2>자주 묻는 질문</h2>
+
+        <ul class="accordion">
+            <li>
+                <input type="radio" name="faq" id="q1">
+                <label for="q1">목공이 처음인데 가능한가요?</label>
+                <div class="content">
+                    초보자도 참여 가능한 기초 클래스가 준비되어 있습니다.
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="faq" id="q2">
+                <label for="q2">준비물이 필요한가요?</label>
+                <div class="content">
+                    모든 공구와 재료는 공방에서 제공합니다.
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="faq" id="q3">
+                <label for="q3">단체 예약도 가능한가요?</label>
+                <div class="content">
+                    최대 10인까지 단체 수업이 가능합니다.
+                </div>
+            </li>
+        </ul>
+    </section>
+</body>
+</html>
