@@ -1,0 +1,1130 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Jin's SWITCH Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      @font-face {
+        font-family: "GalmuriFont";
+        src: url("../GalmuriMono9.ttf") format("truetype");
+      }
+
+      /* [1. 전체 설정] */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #2d2d2d;
+      }
+
+      /* [2. 헤더] */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        z-index: 1000;
+        background: linear-gradient(
+          180deg,
+          rgba(104, 103, 103, 0.8) 0%,
+          transparent 100%
+        );
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #fff;
+        cursor: pointer;
+        text-shadow: 0 2px 4px rgba(68, 68, 68, 0.5);
+        transition: transform 0.2s;
+      }
+
+      .logo:hover {
+        transform: scale(1.05);
+        color: #e60012;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+      }
+
+      nav ul li {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ccc;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      nav ul li:hover {
+        color: #00c3e3;
+      }
+
+      /* [3. 슬라이드 컨테이너] */
+      #main-container {
+        display: flex;
+        width: 600vw;
+        height: 100vh;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      section {
+        width: 100vw;
+        height: 100vh;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* [PAGE 1] 인트로 */
+      #intro {
+        background-color: #e60012;
+      }
+      .switch-ani-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 40px;
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      .replay .switch-ani-box {
+        animation: snapDrop 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+      }
+      .joy-con {
+        width: 80px;
+        height: 160px;
+        background: white;
+        position: relative;
+      }
+      .joy-con.left {
+        border-radius: 40px 0 0 40px;
+        transform: translateY(-30px);
+      }
+      .joy-con.left::after {
+        content: "";
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        width: 24px;
+        height: 24px;
+        background: #e60012;
+        border-radius: 50%;
+      }
+      .joy-con.right {
+        border-radius: 0 40px 40px 0;
+        transform: translateY(30px);
+      }
+      .joy-con.right::after {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        background: #e60012;
+        border-radius: 50%;
+      }
+      .replay .joy-con.left {
+        animation: alignLeft 0.5s 0.8s forwards
+          cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .replay .joy-con.right {
+        animation: alignRight 0.5s 0.8s forwards
+          cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      @keyframes snapDrop {
+        0% {
+          opacity: 0;
+          transform: scale(1.5);
+        }
+        60% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes alignLeft {
+        to {
+          transform: translateY(0);
+        }
+      }
+      @keyframes alignRight {
+        to {
+          transform: translateY(0);
+        }
+      }
+      .intro-text {
+        font-size: 2rem;
+        color: white;
+        font-weight: 700;
+        margin-top: 20px;
+        height: 40px;
+      }
+      .cursor {
+        border-right: 3px solid white;
+        animation: blink 0.8s infinite;
+      }
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      /* [PAGE 2] 메뉴 */
+      #menu-screen {
+        background: #f0f0f0;
+      }
+      .status-bar {
+        position: absolute;
+        top: 80px;
+        right: 40px;
+        display: flex;
+        gap: 15px;
+        color: #555;
+        /* 🌻align-items: center; */
+      }
+      .chip-list {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+        perspective: 1000px;
+      }
+      .game-card {
+        width: 260px;
+        height: 340px;
+        background: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+        display: flex;
+        flex-direction: column;
+        /* 🌻 */
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .card-img {
+        flex: 1;
+        background-size: cover;
+        background-position: center;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        /* 🌻 */
+        background-color: #333;
+      }
+      .card-title {
+        height: 0;
+        overflow: hidden;
+        background: #fff;
+        color: #00c3e3;
+        font-weight: 900;
+        text-align: center;
+        line-height: 50px;
+        transition: height 0.2s;
+        /* 🌻 */
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+      .game-card:hover {
+        transform: scale(1.2);
+        border: 6px solid #00c3e3;
+        /* 🌻 */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+      }
+      .game-card:hover .card-title {
+        height: 50px;
+      }
+
+      /* -----------------------------------------------------------
+           [PAGE 3] ABOUT 페이지 (여울) - 텍스트 위치 및 이탈 수정
+        ----------------------------------------------------------- */
+      #about-page {
+        position: relative;
+        background-color: #000; /* 동영상 로딩 전 배경 */
+      }
+
+      .bg-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 화면을 꽉 채우도록 설정 */
+        z-index: 1;
+      }
+      /* 말풍선 컨테이너 */
+      .dialogue-box {
+        position: absolute;
+        bottom: 4%;
+        /* 화면 아래에서 얼마나 띄울지  */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        max-width: 900px;
+        /* ★ 말풍선을 안 보이게  */
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        
+        
+       
+      }
+
+      /* 말풍선 꼬리표 제거 */
+      .dialogue-box::after,
+      .dialogue-box::before {
+        display: none;
+      }
+
+      /* 이름 스타일 (영상 위에 잘 보이게 그림자 추가) */
+      /* .speaker-name {
+        font-size: 1.2rem;
+        font-weight: 900;
+        color: #00c3e3;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); 
+    } */
+
+      /* 대화 내용 스타일 (영상 위에 잘 보이게 색상/그림자 조정) */
+      .dialogue-text {
+        /* font-size: 3.4vw; */
+        font-size: clamp(16px, 3.4vw, 40px);
+        /* 글자 크기 키움 */
+        color: #695849;
+        /* 흰색 글자 */
+        line-height: 1.6;
+        /* height: 30vw; */
+        height: clamp(120px, 30vw, 250px);
+        font-weight: 900;
+        text-shadow: none;
+        word-break: keep-all;
+        overflow: hidden;
+        /* padding-top: 100px; */
+      }
+
+      /* -----------------------------------------------------------
+           [PAGE 5] PROJECT 페이지 (마리오) - 배경 투명도 수정
+        ----------------------------------------------------------- */
+
+      /* -----------------------------------------------------------
+           [PAGE 4] SKILLS 페이지 (포켓몬) - ★ 투명도 적용 ★
+        ----------------------------------------------------------- */
+      #skills-page {
+        width: 100vw !important;
+        height: 100vh !important;
+        position: relative !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: none !important;
+        isolation: isolate;
+        overflow: hidden;
+      }
+
+      #skills-page::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("https://data1.pokemonkorea.co.kr/newdata/2025/02/2025-02-27_23-09-57-73467-1740665397.png");
+        background-position: center;
+        background-size: cover;
+        z-index: -1 !important;
+      }
+
+      .pokemon-container {
+        position: relative !important;
+        z-index: 2 !important;
+        width: 100%;
+        max-width: 700px;
+        background: rgba(114, 98, 194, 0.404); /* 반투명 보라 */
+        padding: 50px 60px;
+        border-radius: 40px;
+      }
+
+      .pokemon-header {
+        font-family: "GalmuriFont";
+        color: rgb(255, 255, 255);
+        font-size: 2rem;
+        font-weight: 900;
+        margin-bottom: 30px;
+        padding-left: 10px;
+        letter-spacing: 0.1rem;
+      }
+
+      .pokemon-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        list-style: none;
+      }
+
+      .pokemon-slot {
+        display: flex;
+        flex-direction: column;
+        background: rgba(60, 50, 110, 0.75); /* 반투명 진한 보라 */
+        border-radius: 15px;
+        padding: 20px 30px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .pokemon-slot:hover {
+        background: #ffd900af !important;
+        transform: scale(1.05);
+        color: #222 !important;
+        text-shadow: none !important;
+      }
+
+      .slot-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .level-badge {
+        font-family: "GalmuriFont";
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 3px 10px;
+        border-radius: 15px;
+        min-width: 50px;
+        text-align: center;
+        letter-spacing: 0.1rem;
+      }
+
+      .name-area {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: 10px;
+      }
+
+      .slot-name {
+        font-family: "GalmuriFont";
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+        letter-spacing: 0.1rem;
+      }
+
+      .skill-icon {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+      }
+
+      .slot-exp-track {
+        width: 100%;
+        height: 5px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .slot-exp-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #00eaff, #008cff);
+      }
+
+      .gender-icon.male {
+        color: #55aaff;
+      }
+      .gender-icon.female {
+        color: #ff55aa;
+      }
+
+      .empty-circle {
+        width: 55px;
+        height: 55px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+      }
+      /* ------------------------------------------------------- */
+      /* -----------------------------------------------------------
+           [PAGE 5] PROJECT 페이지 (마리오) - ★ 수정됨: 이미지 잘림/배경 꽉참 ★
+        ----------------------------------------------------------- */
+      #project-page {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 100px;
+        background-color: #f8f9fa;
+        overflow: hidden;
+      }
+
+      #project-page h2 {
+        font-family: "GalmuriFont";
+        font-size: 3rem;
+        color: #e60012;
+        font-weight: 900;
+        margin-bottom: 20px;
+        z-index: 10;
+        text-shadow: 2px 2px 0px #fff;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 20px;
+        width: 90%;
+        max-width: 600px;
+        height: 50vh;
+        z-index: 5;
+        perspective: 1000px;
+      }
+
+      .project-card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        transform-style: preserve-3d;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+      }
+
+      .project-card:hover .card-inner {
+        transform: rotateY(180deg) scale(1.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+      }
+
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border: none;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+      }
+
+      /* ★ 수정: 오타 수정 및 이미지 꽉 채우기 */
+      .card-front img {
+        width: 100%;
+        height: 100%; /* 기존 1 -> 100% 로 수정 */
+        object-fit: contain; /* 비율 유지하며 박스 안에 쏙 */
+      }
+
+      .card-back {
+        transform: rotateY(180deg);
+        border: 4px solid #e60012;
+        border-radius: 15px;
+        background: white;
+      }
+
+      .card-back img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* ★ 수정: 하단 배경 이미지가 빈틈없이 꽉 차도록 설정 */
+      .bottom-deco {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+
+        /* 가로/세로 중 부족한 쪽을 기준으로 꽉 채움 */
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+
+        object-fit: cover;
+        object-position: bottom center;
+
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.9;
+      }
+      /* ---------------CONTACT 페이지--------------- */
+     /* 전체 섹션 설정 */
+     /* CONTACT 섹션 전체 레이아웃 */
+#contact {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000; /* 기본 검정 */
+}
+
+/* 비디오가 들어가는 레이어 */
+#contact-intro-layer {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 5;
+    background: #000;
+}
+#contact-video {
+    width: 100%; height: 100%; object-fit: cover;
+}
+
+/* 비디오 후 나타날 배경 레이어 (tokmain.jpg) */
+#contact-main-content {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('../images/tokmain.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* 메뉴를 하단으로 배치 */
+    padding-bottom: 80px; /* 빨간 원 위치 조절을 위한 아래 여백 */
+    opacity: 0; /* 처음엔 숨김 */
+    transition: opacity 1.5s ease; /* 서서히 나타나는 효과 */
+}
+
+/* 메뉴 글자 스타일 (빛나는 민트색) */
+.zelda-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #1c7061; /* 젤다 민트색 */
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+    /* 4번째 사진처럼 빛나는 효과(Shadow) */
+    text-shadow: 0 0 10px rgba(108, 241, 217, 0.8), 0 0 20px rgba(160, 253, 236, 0.4);
+    position: relative;
+}
+
+/* 마우스를 올렸을 때(Hover) 효과 */
+.zelda-link:hover {
+    transform: scale(1.2); /* 글자 커짐 */
+    color: #fff; /* 흰색으로 더 밝게 */
+}
+
+/* 호버 시 나타나는 양옆 화살표 아이콘 */
+.zelda-link::before, .zelda-link::after {
+    content: '▶'; /* 젤다 풍의 화살표 */
+    font-size: 1.5rem;
+    position: absolute;
+    opacity: 0;
+    transition: 0.3s;
+}
+.zelda-link::before { left: -40px; } /* 왼쪽 화살표 */
+.zelda-link::after { right: -40px; transform: rotate(180deg); } /* 오른쪽 화살표 */
+
+.zelda-link:hover::before, .zelda-link:hover::after {
+    opacity: 1; /* 호버 시에만 보임 */
+}
+      /* 반응형 모바일 */
+      @media (max-width: 768px) {
+        .dialogue-box {
+          height: 25vh;
+          bottom: 5%;
+        }
+        .dialogue-text {
+          font-size: 16px;
+        }
+        .grid-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      /* ★ [핵심수정] 1024px 이상 전체창일 때만 적용되는 규칙 ★ */
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo" onclick="moveSlide(0)">A Jin's SWITCH</div>
+      <nav>
+        <ul>
+          <li onclick="moveSlide(2)">ABOUT</li>
+          <li onclick="moveSlide(3)">SKILLS</li>
+          <li onclick="moveSlide(4)">PROJECT</li>
+          <li onclick="moveSlide(5)">CONTACT</li>
+        </ul>
+      </nav>
+    </header>
+
+    <div id="main-container">
+      <section id="intro" onclick="moveSlide(1)">
+        <div class="switch-ani-box">
+          <div class="joy-con left"></div>
+          <div class="joy-con right"></div>
+        </div>
+        <div class="intro-text">
+          <span id="typing-intro"></span><span class="cursor"></span>
+        </div>
+        <p style="color: rgba(255, 255, 255, 0.7); margin-top: 20px">
+          Click anywhere to Start! ⇪
+        </p>
+      </section>
+
+      <section id="menu-screen">
+        <div class="status-bar"><span>12:00 PM</span><span>🔋</span></div>
+        <div class="chip-list">
+          <div class="game-card" onclick="moveSlide(2)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(https://images.ctfassets.net/sjvy5j5nlcjk/3Rup4rQtUZIFheoXvZZ4IT/3379b9117265aa9d25f03a1e7e30ca5a/720x594.jpg?w=735&fm=webp);
+              "
+            ></div>
+            <div class="card-title">ABOUT</div>
+          </div>
+          <div class="game-card" onclick="moveSlide(3)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(https://store.nintendo.co.kr/media/catalog/product/cache/3be328691086628caca32d01ffcc430a/2/9/298f080377131f2981b05d4ebf7dca5ae45c59f84bdf703f9e499392587db17c_1.jpg);
+              "
+            ></div>
+            <div class="card-title">SKILLS</div>
+          </div>
+          <div class="game-card" onclick="moveSlide(4)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(https://images.ctfassets.net/sjvy5j5nlcjk/iUKhi9rRpjg2A5DYzyhjs/eaf4c68f1a5165a08df35a4609c6ebcd/mariobroswonder_thumb.jpg?w=735&fm=webp);
+              "
+            ></div>
+            <div class="card-title">PROJECT</div>
+          </div>
+          <div class="game-card" onclick="moveSlide(5)">
+            <div
+              class="card-img"
+              style="
+                background-image: url(https://images.ctfassets.net/sjvy5j5nlcjk/7xdO9mFHSNyrbCLaect6kl/f2168a8716749ef7d057960d491f50ee/zelda_totk_sp.png?w=735&fm=webp);
+              "
+            ></div>
+            <div class="card-title">CONTACT</div>
+          </div>
+        </div>
+        <h3 style="color: #888; margin-top: 20px; font-weight: 500">
+          Select Your Cartridge
+        </h3>
+      </section>
+
+      <section id="about-page">
+        <video
+          class="bg-video"
+          id="about-video"
+          autoplay
+          muted
+          playsinline
+          loop
+        >
+          <source src="../여울최초치최종.mp4" type="video/mp4" />
+        </video>
+        <div class="dialogue-box">
+          <div class="dialogue-text" id="about-dialogue"></div>
+        </div>
+      </section>
+
+      <section id="skills-page">
+        <div class="pokemon-container">
+          <div class="pokemon-header">지닌 SKIILLS</div>
+          <ul class="pokemon-list">
+            <li class="pokemon-slot">
+              <div class="slot-top-row">
+                <div class="level-badge">Lv.90</div>
+                <div class="name-area">
+                  <span class="slot-name">HTML5</span>
+                  <span class="gender-icon male">♂</span>
+                </div>
+                <img
+                  src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/044801.png"
+                  alt="icon"
+                  class="skill-icon"
+                />
+              </div>
+              <div class="slot-exp-track">
+                <div class="slot-exp-fill" style="width: 90%"></div>
+              </div>
+            </li>
+            <li class="pokemon-slot">
+              <div class="slot-top-row">
+                <div class="level-badge">Lv.85</div>
+                <div class="name-area">
+                  <span class="slot-name">CSS3</span>
+                  <span class="gender-icon female">♀</span>
+                </div>
+                <img
+                  src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/044501.png"
+                  alt="icon"
+                  class="skill-icon"
+                />
+              </div>
+              <div class="slot-exp-track">
+                <div class="slot-exp-fill" style="width: 85%"></div>
+              </div>
+            </li>
+            <li class="pokemon-slot">
+              <div class="slot-top-row">
+                <div class="level-badge">Lv.80</div>
+                <div class="name-area">
+                  <span class="slot-name">JavaScript</span>
+                  <span class="gender-icon male">♂</span>
+                </div>
+                <img
+                  src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/070001.png"
+                  alt="icon"
+                  class="skill-icon"
+                />
+              </div>
+              <div class="slot-exp-track">
+                <div class="slot-exp-fill" style="width: 80%"></div>
+              </div>
+            </li>
+            <li class="pokemon-slot">
+              <div class="slot-top-row">
+                <div class="level-badge">Lv.75</div>
+                <div class="name-area">
+                  <span class="slot-name">MySQL</span>
+                  <span class="gender-icon female">♀</span>
+                </div>
+                <img
+                  src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/088701.png"
+                  alt="icon"
+                  class="skill-icon"
+                />
+              </div>
+              <div class="slot-exp-track">
+                <div class="slot-exp-fill" style="width: 75%"></div>
+              </div>
+            </li>
+            <li class="pokemon-slot empty">
+              <div class="slot-top-row">
+                <div class="level-badge">Lv.--</div>
+                <div class="name-area"><span class="slot-name">???</span></div>
+                <div class="empty-circle"></div>
+              </div>
+              <div class="slot-exp-track"></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="project-page">
+        <h2>PROJECTS</h2>
+        <br />
+        <div class="grid-container">
+          <a href="http://127.0.0.1:5500/260129/%EC%A0%A4%EB%8B%A4%EC%9D%91%EC%9A%A9%EC%8B%A4%EC%8A%B5.html" target="_blank" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="?" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="../images/samplezelda.png"
+                  alt="Project 1"
+                />
+              </div>
+            </div>
+          </a>
+          <a href="http://127.0.0.1:5500/260130/Mobilefirst/index.html" target="_blank" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="?" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="../images/mobilefirstsample.png"
+                  alt="Project 2"
+                />
+              </div>
+            </div>
+          </a>
+          <a href="http://127.0.0.1:5500/260127/%EA%B0%A4%EB%9F%AD%EC%8B%9C%EC%9B%8C%EC%B9%98.html" target="_blank" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="?" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="../images/samplewatch.png"
+                  alt="Project 3"
+                />
+              </div>
+            </div>
+          </a>
+          <a href="http://127.0.0.1:5500/260127/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.html" target="_blank" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="?" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="../images/samplenaverform.png"
+                  alt="Project 4"
+                />
+              </div>
+            </div>
+          </a>
+          <a href="http://127.0.0.1:5500/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4/summerrecord.html" target="_blank" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="?" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="../images/samplesummerrecord.png"
+                  alt="Project 5"
+                />
+              </div>
+            </div>
+          </a>
+          <a href="http://127.0.0.1:5500/260126/grid%EC%83%9D%EC%8B%9D.html" target="_blank" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="?" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="../images/samplerawfood.png"
+                  alt="Project 6"
+                />
+              </div>
+            </div>
+          </a>
+          <a href="http://127.0.0.1:5500/260128/video%EC%8B%A4%EC%8A%B5.html" target="_blank" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="?" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="../images/sample_seavideo.png"
+                  alt="Project 7"
+                />
+              </div>
+            </div>
+          </a>
+          <a href="http://127.0.0.1:5500/260128/trans%EC%8B%A4%EC%8A%B5.html" target="_blank" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="?" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="../images/sample_HF.png"
+                  alt="Project 8"
+                />
+              </div>
+            </div>
+          </a>
+          <a href="http://127.0.0.1:5500/260130/%EC%82%AC%EC%A7%84grid.html" target="_blank" class="project-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <img src="../images/슈퍼마리오박스.png" alt="?" />
+              </div>
+              <div class="card-back">
+                <img
+                  src="../images/sample_photogrid.png"
+                  alt="Project 9"
+                />
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- <img
+          class="bottom-deco"
+          src="https://www.nintendo.com/kr/switch/aqmxa/assets/img/top/mv_bg.jpg"
+          alt="Mario Deco"
+        /> -->
+      </section>
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+      <div id="contact" class="section">
+    <div id="contact-intro-layer">
+        <video id="contact-video" muted playsinline>
+            <source src="../images/zeldatitle.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div id="contact-main-content">
+        <div class="contact-menu-box">
+            <a href="https://instagram.com/0ajinova" class="zelda-link" target="_blank">
+                <i class="fab fa-instagram"></i> INSTAGRAM
+            </a>
+            <a href="https://github.com/lastsummer0830" class="zelda-link" target="_blank">
+                <i class="fab fa-github"></i> GITHUB
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajin@example.com" class="zelda-link">
+                <i class="fas fa-envelope"></i> GMAIL
+            </a>
+            <a href="https://blog.naver.com/lastsummer0830" class="zelda-link" target="_blank">
+                <i class="fas fa-rss"></i> BLOG
+            </a>
+        </div>
+    </div>
+</div>
+
+    <script>
+      // [기능 1] 슬라이드 이동 함수
+      function moveSlide(index) {
+        const container = document.getElementById("main-container");
+        container.style.transform = `translateX(-${index * 100}vw)`;
+
+        // ★ ABOUT 페이지(2번)로 가면 동영상과 타이핑 시작
+        if (index === 2) {
+          startAboutSequence();
+        }
+      }
+
+      // [기능 2] 인트로 화면 무한 리플레이
+      const introTextStr = "A Jin's SWITCH World";
+      const introTypingEl = document.getElementById("typing-intro");
+      const introSection = document.getElementById("intro");
+      let introIndex = 0;
+
+      function playIntroLoop() {
+        introSection.classList.remove("replay");
+        introTypingEl.innerHTML = "";
+        introIndex = 0;
+        void introSection.offsetWidth; // 강제 리플로우
+        introSection.classList.add("replay");
+        setTimeout(typeText, 800);
+      }
+
+      function typeText() {
+        if (introIndex < introTextStr.length) {
+          introTypingEl.innerHTML += introTextStr.charAt(introIndex);
+          introIndex++;
+          setTimeout(typeText, 100);
+        } else {
+          setTimeout(playIntroLoop, 3000);
+        }
+      }
+
+      window.onload = function () {
+        setTimeout(playIntroLoop, 500);
+      };
+
+      // [여울 타이핑 로직 ]
+      const aboutText = "안녕하세요! 오늘 소개 해드릴 분은 \n 웹 개발자 A Jin님입니다. 감각적인 개발에 자신있으신 분이에요! 궁금하신 곳을 클릭해주세요!";
+      const aboutEl = document.getElementById("about-dialogue");
+      let aboutIdx = 0;
+      let aboutTimer = null;
+
+      // 1. 설정값 )
+      const TIMING = {
+        START_DELAY: 800,    // (1) 말풍선이 나타난 후 타이핑 시작까지 대기 시간 (800 = 0.8초)
+        TYPING_SPEED: 50,    // (2) 글자가 타다닥 써지는 속도 (숫자가 작을수록 빠름)
+        DISPLAY_TIME: 600,  // (3) 대사가 다 써진 후 화면에 머무는 시간 (3000 = 3초)
+        RESET_WAIT: 0      // (4) 대사가 사라지고 다음 리플레이까지 쉬는 시간
+      };
+
+      function startAboutSequence() {
+        if (aboutTimer) clearTimeout(aboutTimer);
+        
+        // 초기화
+        aboutEl.innerHTML = "";
+        aboutIdx = 0;
+
+        // (1)번 설정값만큼 기다린 후 타이핑 시작 (말풍선 애니메이션과 맞추는 곳)
+        aboutTimer = setTimeout(typeAbout, TIMING.START_DELAY);
+      }
+
+      function typeAbout() {
+        if (aboutIdx < aboutText.length) {
+          let char = aboutText.charAt(aboutIdx++);
+          aboutEl.innerHTML += char === "\n" ? "<br/>" : char;
+          
+          // (2)번 설정값만큼 간격을 두고 다음 글자 출력
+          aboutTimer = setTimeout(typeAbout, TIMING.TYPING_SPEED);
+        } else {
+          // 타이핑 종료 후 (3)번 설정값만큼 대기했다가 사라짐(리플레이 준비)
+          aboutTimer = setTimeout(() => {
+            aboutEl.innerHTML = ""; // 글자 삭제 (말풍선이 사라지는 시점)
+            
+            // (4)번 설정값만큼 뒤에 다시 처음부터 시작
+            aboutTimer = setTimeout(startAboutSequence, TIMING.RESET_WAIT);
+          }, TIMING.DISPLAY_TIME);
+        }
+      }
+      //CONTACT 페이지
+      // 비디오 및 레이어 변수 설정
+const cVideo = document.getElementById('contact-video');
+const introLayer = document.getElementById('contact-intro-layer');
+const mainContent = document.getElementById('contact-main-content');
+
+// CONTACT 메뉴를 클릭했을 때 비디오가 재생되도록 하는 로직 (선택사항)
+// 만약 페이지 로드되자마자 실행하고 싶다면 아래 cVideo.play()를 바로 쓰세요.
+cVideo.play(); 
+
+// 비디오가 끝나면(onended) 실행될 함수
+cVideo.onended = function() {
+    // 1. 비디오 레이어를 부드럽게 숨기기
+    introLayer.style.transition = "opacity 1s";
+    introLayer.style.opacity = "0";
+    
+    // 2. 메인 컨텐츠(배경사진+메뉴) 서서히 나타내기
+    mainContent.style.opacity = "1";
+
+    // 3. 1초 뒤에 비디오 레이어를 완전히 제거 (클릭 방지)
+    setTimeout(() => {
+        introLayer.style.display = "none";
+    }, 1000);
+};
+    </script>
+  </body>
+</html>
