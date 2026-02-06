@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        let a=5;
+
+        //a++;
+        //a++ => 연산자가 연산의 결과를 발생함   
+        //a+b => 연산자가 연산의 결과가 발생됨
+        ++a;
+
+        console.log(a);
+
+
+        //문제1
+        let x=5;
+        let y=10;
+        x++;
+        let z = x++  +  ++y;
+        //z의 값이 얼마?
+        //x= 6 //y= 11 //z=17
+        
+
+        //문제2
+        let k1=10;
+        let k2=8;
+        --k2;
+        let result = k1--   -   --k2;
+        //result ??
+        //k1-- = 후위감소(값을 준 후 줄임)=10
+        //--k2 = 전위 감소(줄이고 난 후 값을 줌)=7
+        //result=k1(10-1)-k2(7-1)=4
+
+
+        
+    </script>
+</body>
+</html>
